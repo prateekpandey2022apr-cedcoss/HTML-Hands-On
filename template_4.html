@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <style>
+      table th, table td {
+        border: 1px solid #e3e3e3;
+      }
+
+      tfoot td, tfoot tr{
+        border: none;
+      }
+
+      .button{
+        display: inline-block;
+        margin: 15px 12px 0 0;
+        /* border-radius: 7px; */
+        padding: 5px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>KM Custom HTML Form Example using AppleScript</h1>
+
+    <form action="" >
+    <table>
+      <tbody>
+        <tr>
+          <td><label for="name">Name</label></td>
+          <td><input type="text" name="name" id="name" /></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email</label></td>
+          <td><input type="email" name="email" id="email" /></td>
+        </tr>
+
+        <tr>
+          <td><label for="password">Password</label></td>
+          <td><input type="password" name="password" id="password" /></td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="approval"
+              >Approval Required <br />
+              <small
+                >click on the button or text to check or unchceck</small
+              ></label
+            >
+          </td>
+          <td><input type="checkbox" name="approval" id="approval" /></td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="">Pick your favourite <br>
+              <small
+                >click on the button or text to select</small
+              >
+            </label>
+          </td>
+          <td>
+            <label for="choice_1"
+              ><input type="radio" name="choice" id="choice_1" /> Choice
+              A</label
+            >
+            <br />
+            <label for="choice_2"
+              ><input type="radio" name="choice" id="choice_2" /> Choice
+              B</label
+            >
+            <br />
+            <label for="choice_3"
+              ><input type="radio" name="choice" id="choice_3" /> Choice
+              C</label
+            >
+          </td>
+        </tr>
+
+        <tr>
+            <td><label for="popup_menu">Popup Menu</label></td>
+            <td>
+                <select name="popup_menu" id="popup_menu">
+                    <option value="value_1">Value 1</option>
+                    <option value="value_2">Value 2</option>
+                    <option value="value_3">Value 3</option>
+                    <option value="value_4">Value 4</option>
+                    <option value="value_5">Value 5</option>
+                </select>
+            </td>
+        </tr>
+        
+
+        <tr>
+          <td><label for="ms_menu">List</label></td>
+          <td>
+              <select name="ms_menu" id="ms_menu" multiple>
+                  <option value="value_1">Value 1</option>
+                  <option value="value_2">Value 2</option>
+                  <option value="value_3">Value 3</option>
+                  <option value="value_4">Value 4</option>
+                  <option value="value_5">Value 5</option>
+              </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td><label for="ignored">Field ignored by KM</label></td>
+          <td><input type="text" name="ignored" id="ignored" /></td>
+        </tr>
+
+        <tr>
+          <td><label for="comment">Field ignored by KM</label></td>
+          <td><textarea name="comment" id="comment" cols="30" rows="5"></textarea></td>
+        </tr>
+
+
+        <tfoot>
+
+          <tr>
+            <td>
+            <button type="submit" class="button">Submit</button>
+            <button type="reset" class="button">Reset</button>
+            <button type="reset" class="button">Resize</button>            
+            </td>
+
+          </tr>
+
+      
+        </tfoot>
+
+
+      </tbody>
+    </table>
+
+  </form>
+
+  </body>
+</html>
