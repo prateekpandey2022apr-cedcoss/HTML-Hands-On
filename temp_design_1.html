@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+
+        body{
+            max-width: 1100px;
+        }
+
+      .header {
+        padding: 10px;
+        background: #e3e3e3;
+      }
+
+      .nav {
+        background-color: #000;
+        /* padding: 12px; */
+        padding-left: 0;
+      }
+
+      .nav ul {
+        padding: 0;
+        margin: 0;
+        /* margin-left: 0;
+        padding-left: 0;         */
+        list-style: none;
+      }
+
+      .nav a {
+        padding: 0;
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .nav a:hover {        
+        color: #fff;
+        text-decoration: underline;
+        /* background-color: rgb(44, 48, 48); */
+      }
+
+      .nav ul li:hover {
+        background-color: rgb(40, 148, 63);
+      }
+
+      .nav ul li {
+        display: inline-block;
+        /* padding-right: 10px; */
+        background-color: #000;
+        padding: 10px;
+        color: #fff;
+        border-right: 1px solid;
+        margin-right: -4px;
+      }
+
+      .container{
+          overflow: auto;
+                
+          background-image: linear-gradient(
+                to right, 
+                white 0%, 
+                white 72.6%, 
+                #e3e3e3 50%,       
+                #e3e3e3 100%
+         )
+
+      }
+
+      .main{
+          float: left;
+          width: 700px;
+          margin-right: 20px;
+           
+      }
+
+      .container .heading{
+          color: rgb(26, 43, 99)
+      }
+
+      .sidebar{
+          background-color: #e3e3e3;
+          overflow: auto;
+          padding: 15px;
+          width: 200px;
+      }
+
+      .clearfix{
+          clear: both;
+      }
+
+      .footer{
+        text-align: right;
+        background-color: #d7d7d7;
+        padding: 15px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Site Name</h2>
+    </div>
+
+    <div class="nav">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <div class="main">
+
+        <h1 class="heading">Page Heading</h1>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          temporibus veritatis molestias a dolorem vel at deserunt esse. Animi
+          voluptatum expedita libero deleniti odio consequuntur accusamus alias
+          aliquid ex pariatur? Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cupiditate temporibus veritatis molestias a dolorem
+          vel at deserunt esse. Animi voluptatum expedita libero deleniti odio
+          consequuntur accusamus alias aliquid ex pariatur? Lorem ipsum dolor
+          sit amet consectetur adipisicing elit. Cupiditate temporibus veritatis
+          molestias a dolorem vel at deserunt esse. Animi voluptatum expedita
+          libero deleniti odio consequuntur accusamus alias aliquid ex pariatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          temporibus veritatis molestias a dolorem vel at deserunt esse. Animi
+          voluptatum expedita libero deleniti odio consequuntur accusamus alias
+          aliquid ex pariatur?
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          temporibus veritatis molestias a dolorem vel at deserunt esse. Animi
+          voluptatum expedita libero deleniti odio consequuntur accusamus alias
+          aliquid ex pariatur? Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cupiditate temporibus veritatis molestias a dolorem
+          vel at deserunt esse. Animi voluptatum expedita libero deleniti odio
+          consequuntur accusamus alias aliquid ex pariatur? Lorem ipsum dolor
+          sit amet consectetur adipisicing elit. Cupiditate temporibus veritatis
+          molestias a dolorem vel at deserunt esse. Animi voluptatum expedita
+          libero deleniti odio consequuntur accusamus alias aliquid ex pariatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          temporibus veritatis molestias a dolorem vel at deserunt esse. Animi
+          voluptatum expedita libero deleniti odio consequuntur accusamus alias
+          aliquid ex pariatur?
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          temporibus veritatis molestias a dolorem vel at deserunt esse. Animi
+          voluptatum expedita libero deleniti odio consequuntur accusamus alias
+          aliquid ex pariatur? Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Cupiditate temporibus veritatis molestias a dolorem
+          vel at deserunt esse. Animi voluptatum expedita libero deleniti odio
+          consequuntur accusamus alias aliquid ex pariatur?
+        </p>
+      </div>
+
+      <div class="sidebar">
+        <h3 class="heading">Aside Heading</h3>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
+          fuga rem sed aliquid nesciunt dolor nemo ducimus possimus accusantium
+          magnam nihil ratione nisi explicabo et, iusto, omnis vitae eligendi
+          cumque. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Reiciendis fuga rem sed aliquid nesciunt dolor nemo ducimus possimus
+          accusantium magnam nihil ratione nisi explicabo et, iusto, omnis vitae
+          eligendi cumque.
+        </p>
+      </div>
+
+
+      <div class="footer clearfix">
+
+        <p>Copyright @sitename 20xx</p>
+
+      </div>
+
+    </div>
+  </body>
+</html>
