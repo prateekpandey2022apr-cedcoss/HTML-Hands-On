@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+
+        body{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            /* font-size: 14px; */
+        }
+        
+
+        .title {
+            float: left;
+            width: 700px;
+        }
+
+        .nav a {
+        padding: 0;
+        color: #346683;
+        text-decoration: none;
+        /* display: inline-block; */
+      }
+
+
+        .nav ul li {
+        display: inline-block;
+        /* padding-right: 10px; */
+        /* background-color: #000; */
+        padding: 10px;
+        color: #fff;
+        border-right: 1px solid;
+        margin-right: -4px;
+      }
+
+      .banner{
+          background-color: #e3e3e3;
+          /* text-align: justify; */
+          padding: 20px;
+          overflow: auto;
+      }
+
+      .banner .intro{
+          float: left;
+          width: 200px;
+      }
+
+      .banner .learn a{
+          /* background-color: beige; */
+          border: 1px solid;
+          padding: 10px;
+          border-radius: 5px;          
+          text-decoration: none;
+          background-image: linear-gradient( to bottom, white 0%, 
+          white 50%, #efebeb 50%, #e3e3e3 100% );
+          color: rgb(73, 72, 72);
+      }
+
+      .banner .learn a:hover{
+          /* background-color: beige; */
+          /* border: 1px solid;
+          padding: 10px;
+          border-radius: 5px;          
+          text-decoration: none; */
+          /* background-image: linear-gradient( to bottom, rgb(131, 25, 25) 0%, 
+          white 50%, #efebeb 50%, #e3e3e3 100% ); */
+
+          background-image: linear-gradient( to bottom, #e3e3e3 0%, 
+          #efebeb 50%, white 50%, white 100% ); 
+          
+
+          
+          /* color: rgb(73, 72, 72); */
+      }
+
+
+      .offerings .card{
+          float: left;
+          width: 300px;
+          margin: 10px;
+          text-align: center;
+      }
+
+      .offerings .card a{
+        color: rgb(92, 91, 91);
+      }
+
+      .clearfix{
+          clear: both;
+      }
+
+      .form{          
+          background-color: #e3e3e3;
+          text-align: center;
+          padding: 25px;          
+      }
+
+      .form input{
+          padding: 10px;
+      }
+
+      .form input[type="submit"]{
+        background-color: #3fb2f5;
+        border: 1px solid #e3e3e3;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .form label{
+          font-weight: bold;
+      }
+
+      .footer{
+          overflow: auto;
+      }
+
+      .footer .copyright{
+          float: left;
+          width: 200px;
+      }
+
+      .footer .company-title{
+          text-align: right;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+
+        <div style="overflow: auto;">
+
+      <div class="title">
+        <h2>Site Logo</h2>
+      </div>
+
+      <div class="nav">
+        <ul>
+          <li><a href="">Products</a></li>
+          <li><a href="">Solution</a></li>
+          <li><a href="">Company</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+      <div class="banner clearfix">
+
+        <div class="intro">
+
+        <h2>We Power eCommerce</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur.  
+        </p>
+
+        <p class="learn"><a href="">Learn More</a></p>
+      </div>
+
+      <div class="blank">
+
+      </div>
+
+    </div>
+
+      <div class="offerings">
+
+        <div class="card">
+          <p class="product-image"><img src="https://via.placeholder.com/200x100.png" alt="" /></p>
+
+          <h3>Heading 1</h3>
+
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum
+            deleniti ea, libero dolorem accusantium aliquid ex repudiandae.            
+          </p>
+
+          <p><a href="">Learn more</a></p>
+        </div>
+
+        <div class="card">
+          <p class="product-image"><img src="https://via.placeholder.com/200x100.png" alt="" /></p>
+
+          <h3>Heading 1</h3>
+
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum
+            deleniti ea, libero dolorem accusantium aliquid ex repudiandae.            
+          </p>
+
+          <p><a href="">Learn more</a></p>
+        </div>
+
+        <div class="card">
+          <p class="product-image"><img src="https://via.placeholder.com/200x100.png" alt="" /></p>
+
+          <h3>Heading 1</h3>
+
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum
+            deleniti ea, libero dolorem accusantium aliquid ex repudiandae.            
+          </p>
+
+          <p><a href="">Learn more</a></p>
+        </div>
+
+
+
+
+      </div>
+
+
+      <div class="form clearfix">
+
+            <form action="">
+                <label for="email">Subsribe Us</label>
+                <input type="email" placeholder="Enter your email.">
+                <input type="submit" value="Submit">
+            </form>
+
+      </div>
+
+
+      <div class="footer ">
+
+        <div class="copyright">
+            <p>@copyright 2022</p>
+        </div>
+
+        <div class="company-title">
+            <p>CEDCOSS Technologies</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </body>
+</html>
