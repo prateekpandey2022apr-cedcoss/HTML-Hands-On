@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <style>
+      header {
+        text-align: center;
+        background-color: #e3e3e3;
+        padding: 4px;        
+        border-bottom: 1px solid #000;
+      }
+
+      .container {
+        overflow: auto;
+      }
+
+      .sidebar {
+        float: left;
+        width: 200px;
+        height: 600px;
+        background-color: #e3e3e3;
+        /* margin: 5px; */
+
+        background-color: #e3e3e3;
+        padding: 4px;
+        border: 1px solid #000;
+        border-left: none;
+      }
+
+      .right {
+        text-align: center;
+        background-color: #cff5bc9e;
+        padding: 4px;
+        border: 1px solid #000;
+        border-right: none;
+      }
+
+      .right-box{
+        overflow: auto;
+        width: 500px;
+        margin: 0 auto;
+      }
+
+      .content{
+        border: 1px solid;        
+        margin: 36px auto;
+        padding: 15px 65px;
+        margin-bottom: 41px;
+      }
+
+      form {
+        display: inline-block;
+        border: 1px solid #0e0d0d;
+        padding: 56px 108px;
+        text-align: right;
+        /* margin: 0 auto; */
+        /* text-align: center; */
+      }
+
+      .clearfix{
+          clear: both;
+      }
+
+      .footer{
+        background-color: #e3e3e3;
+        padding: 5px 0;
+      }
+
+      .footer p{
+        text-align: center;
+      }
+
+      a{
+        color: rgb(1, 78, 1);
+        text-decoration: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <header>
+        <h1>Assignment</h1>
+      </header>
+
+      <div class="col1">
+        <div class="sidebar">
+          <ul>
+            <li>Home</li>
+            <li>Mad Libs</li>
+            <li>Tom Thumb</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="right">        
+
+        <div class="right-box">
+
+
+          <h2>Mad Libs</h2>
+
+        <form action="">
+          <table>
+            <tbody>
+              <tr>
+                <td><label for="name">Person Name</label></td>
+                <td><input type="text" name="name" id="name" /></td>
+              </tr>
+              <tr>
+                <td><label for="email">Character</label></td>
+                <td><input type="email" name="email" id="email" /></td>
+              </tr>
+
+              <tr>
+                <td><label for="password1">Adverb</label></td>
+                <td><input type="password" name="password1" id="password1" /></td>
+              </tr>
+
+              <tr>
+                <td><label for="password2">Adjective</label></td>
+                <td><input type="password" name="password2" id="password2" /></td>
+              </tr>
+              
+
+            </tbody>
+
+          </table>
+
+          <p style="text-align: center;">
+            <input type="submit" value="Tell Story" >                
+          </p>
+
+        </form>
+
+        <div class="content">
+
+          <h2>Wendy's Crazy Madlibs Story</h2>
+
+          <p>
+            Lorem ipsum dolor <a href="#">sit amet</a> consectetur adipisicing elit. Soluta
+            libero delectus a qui sequi facilis ex sed, placeat exercitationem
+            quos eaque esse dicta? <a href="">Similique dolorum</a>, eveniet quidem cupiditate                        
+          </p>
+        </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer clearfix">
+
+          <p><img src="w3c-validator.png" alt=""></p>
+      </div>
+
+    </div>
+
+
+  </body>
+</html>
+
+
