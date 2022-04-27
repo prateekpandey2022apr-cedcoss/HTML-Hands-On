@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      .container {
+        /* text-align: center; */
+        width: 500px;
+        margin: 0 auto;
+        border: 1px solid #e3e3e3;
+      }
+
+      form {
+        /* width: 500px; */
+        /* margin: 0 auto; */
+        /* border: 1px solid #e3e3e3; */
+        padding: 100px 50px 20px 50px;
+      }
+
+      #info {
+        padding-left: 55px;
+        font-weight: bold;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form action="#" id="form" onsubmit="process_form(event);">
+        <table>
+          <tr>
+            <td><label for="age">Age</label></td>
+            <td>
+              <input type="text" name="age" id="age" placeholder="Enter Age" />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="weight">Weight</label></td>
+            <td>
+              <input
+                type="text"
+                name="weight"
+                id="weight"
+                placeholder="Enter Weight"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><input type="submit" name="sumit" value="Submit" /></td>
+          </tr>
+        </table>
+      </form>
+
+      <p id="info"></p>
+    </div>
+
+    <script>
+      function process_form(e) {
+        e.preventDefault();
+        // var form = document.getElementById("form")
+
+        var age = document.getElementById("age");
+        var weight = document.getElementById("weight");
+
+        if (age.value >= 5 && age.value <= 7) {
+          weightCal(15, 20);
+        } else if (age.value >= 8 && age.value <= 10) {
+          weightCal(21, 25);
+        } else if (age.value >= 11 && age.value <= 15) {
+          weightCal(26, 30);
+        } else if (age.value >= 16 && age.value <= 20) {
+          weightCal(31, 40);
+        } else {
+          var info = document.getElementById("info");
+          info.innerText = "Invalid input";
+          info.className = "red";
+        }
+
+        // console.log(age.value > 10);
+      }
+
+      function weightCal(min, max) {
+        var info = document.getElementById("info");
+
+        if (weight.value < min) {
+          info.innerText = "You are underweight";
+          info.className = "red";
+          return;
+        } else if (weight.value >= min && weight.value <= max) {
+          info.innerText = "Keep it up!";
+          info.className = "green";
+          return;
+        } else {
+          // console.log("Overweight!");
+          info.innerText = "You are overweight";
+          info.className = "red";
+          return;
+        }
+      }
+    </script>
+  </body>
+</html>
