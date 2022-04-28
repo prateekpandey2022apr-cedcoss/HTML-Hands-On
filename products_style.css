@@ -1,0 +1,57 @@
+body{
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.container{
+    /* margin: 5% 30%; */
+}
+
+#product_list{
+    border: 1px solid #e3e3e3;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table{
+    
+}
+
+#product_list tr, #product_list td{
+    padding: 10px;
+    border: 1px solid #e3e3e3;
+}
+
+form{
+    width: 100%;
+    margin: 35px auto;
+    width: 35%;
+}
+
+
+input[type="text"], input[type="email"], 
+input[type="date"], input[type="password"]{
+    width: 100%;
+    padding: 6px;
+    /* margi */
+    /* size: 10; 
+    */
+}
+
+#submit{
+    padding: 10px 17px;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    border-radius: 2px;
+    color: #444040;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#submit:hover{
+    /* padding: 10px 17px; */
+    cursor: pointer;
+    background-color: #dae2dc;
+    /* border: 1px solid #c1acac73;
+    border-radius: 5px; */
+}
