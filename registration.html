@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="registration_style.css">
+
+  </head>
+  <body>
+    <div class="container">
+
+      <form action="" id="form" onsubmit="process_form(event)">
+            <table>
+                <tr>
+                    <td><label for="first_name">First Name</label></td>
+                    <td><input type="text" name="first_name" id="first_name" size="40"></td>
+                </tr>
+                <tr>
+                    <td><label for="last_name">Last Name</label></td>
+                    <td><input type="text" name="last_name" id="last_name" size="20"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email</label></td>
+                    <td><input type="email" name="email" id="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="mobile">Mobile</label></td>
+                    <td><input type="text" name="mobile" id="mobile"></td>
+                </tr>
+                <tr>
+                    <td><label for="">Gender</label></td>
+                    <td>
+                        <label for="male">
+                            <input type="radio" name="gender" id="male" value="male">Male
+                        </label>
+                        <label for="female">
+                            <input type="radio" name="gender" id="female" value="female">Female
+                        </label>
+                    </td>
+                </tr>                
+                <tr>
+                    <td><label for="dob">Date of Birth</label></td>
+                    <td><input type="date" name="dob" id="dob"></td>
+                </tr>
+                <tr>
+                    <td><label for="address">Address</label></td>
+                    <td><textarea name="address" id="address" col="110" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="city">City</label></td>
+                    <td><input type="text" name="city" id="city"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="pin">Area PIN</label></td>
+                    <td><input type="text" name="pin" id="pin"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="state">State</label></td>
+                    <td><input type="text" name="state" id="state"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="qualification">Qualification</label></td>
+                    <td>
+                        <select name="qualification" id="qualification">
+                            <option value="10th">10th</option>
+                            <option value="12th">12th</option>
+                            <option value="grad">Graduate</option>
+                            <option value="pg">Post Grad</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="specialization">Specialization</label></td>
+                    <td>
+                        <label for="CS">
+                            <input type="checkbox" name="specialization" id="CS" value="CS">CS
+                        </label>
+                        <label for="IT">
+                            <input type="checkbox" name="specialization" id="IT" value="IT">IT
+                        </label>
+                        <label for="CA">
+                            <input type="checkbox" name="specialization" id="CA" value="CA">CA
+                        </label>
+                        <label for="TC">
+                            <input type="checkbox" name="specialization" id="TC" value="TC">TC
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td><input type="password" name="password" id="password"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" name="submit" id="submit"></td>
+                    <td></td>
+                </tr>
+            </table>
+      </form>
+
+
+    <p id="info"></p>
+
+    </div>
+
+    <script src="registration_js.js"></script>
+
+  </body>
+</html>

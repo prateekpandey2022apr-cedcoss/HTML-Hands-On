@@ -1,0 +1,81 @@
+body{
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: #e3e3e3;
+}
+
+/* input{
+    width: 100%;
+    padding: 6px;
+} */
+
+input[type="text"], input[type="email"], 
+input[type="date"], input[type="password"]{
+    width: 100%;
+    padding: 6px;
+    /* margi */
+    /* size: 10; */
+}
+
+.container{
+    /* text-align: center; */
+    /* width: 80%; */
+    /* margin: 2% 10%; */
+    margin: 5% 25%;
+}
+
+form{
+    /* display: inline-block; */
+    /* width: 100%; */
+    
+}
+
+textarea{
+    resize: vertical;            
+    width: 100%;
+    padding: 7px;
+}
+
+select{            
+    /* width: 200px;
+    padding: 7px; */
+
+    width: 104.4%;;
+    /* width: 100%; */
+    padding: 6px;
+}
+
+#submit{
+    padding: 10px 17px;
+    background-color: #33dd67;
+    border: 1px solid #c1acac73;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#submit:hover{
+    /* padding: 10px 17px; */
+    cursor: pointer;
+    background-color: #60b379;
+    /* border: 1px solid #c1acac73;
+    border-radius: 5px; */
+}
+
+table td{
+    /* margin: 19px 26px; */
+    padding: 5px;
+    /* border: 1px solid #e3e3e3; */
+}
+
+
+#info{
+    text-align: center;
+}
+
+#info table{   
+    margin: 0 auto;
+    text-align: left;         
+    border-collapse: collapse;
+    text-transform: capitalize;
+}
