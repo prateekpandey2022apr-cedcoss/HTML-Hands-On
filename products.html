@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        body{
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .container{
+            /* margin: 5% 30%; */
+        }
+
+        #product_list{
+            border: 1px solid #e3e3e3;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        table{
+            
+        }
+
+        #product_list tr, #product_list td{
+            padding: 10px;
+            border: 1px solid #e3e3e3;
+        }
+
+        form{
+            width: 100%;
+            margin: 35px auto;
+            width: 35%;
+        }
+
+
+        input[type="text"], input[type="email"], 
+        input[type="date"], input[type="password"]{
+            width: 100%;
+            padding: 6px;
+            /* margi */
+            /* size: 10; 
+            */
+        }
+
+        #submit{
+            padding: 10px 17px;
+            background-color: #ffffff;
+            border: 1px solid #000;
+            border-radius: 2px;
+            color: #444040;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        #submit:hover{
+            /* padding: 10px 17px; */
+            cursor: pointer;
+            background-color: #dae2dc;
+            /* border: 1px solid #c1acac73;
+            border-radius: 5px; */
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <form action="" id="form" onsubmit="process_form(event)">
+
+            <table>
+
+                <tr>
+                    <td><label for="product_id">Product ID</label></td>
+                    <td><input type="text" name="product_id" id="product_id"
+                        required ></td>
+                </tr>
+
+                <tr>
+                    <td><label for="product_name">Product Name</label></td>
+                    <td><input type="text" name="product_name" id="product_name"                        
+                        required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="product_price">Product Price</label></td>
+                    <td><input type="text" name="product_price" id="product_price"
+                        required ></td>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" name="submit" value="Add Product"
+                        id="submit" ></td>
+                    <td></td>
+                </tr>
+
+            </table>
+
+        </form>
+
+        <!-- <p id="product_list"> -->
+
+
+            <table id="product_list">
+                <tr>
+                    <td>Product ID</td>
+                    <td>Product Name</td>
+                    <td>Product Price</td>
+                </tr>                    
+            </table>
+
+    <!-- </p> -->
+
+    </div>
+
+    <script>
+
+        function process_form(e) 
+        {
+            e.preventDefault();
+            // console.log('form');
+
+            var form = document.getElementById("form");                        
+            var table = document.getElementById("product_list");
+            var tr = document.createElement("tr");       
+            
+            // debugger;
+
+            // var text_node_arr = []
+            var td_node_arr = []
+
+            for (const element of form.elements) 
+            {                
+                // console.log(element.value);
+                if(element.type == "text")
+                {
+                    let td = document.createElement("td")                                                
+                    td.appendChild(document.createTextNode(element.value));
+                    td_node_arr.push(td);
+                }                
+            }            
+
+            // console.log(td_node_arr);                     
+
+            // console.log(td_node_arr);
+
+            tr.appendChild(td_node_arr[0]);
+            tr.appendChild(td_node_arr[1]);
+            tr.appendChild(td_node_arr[2]);
+
+            table.appendChild(tr);
+
+            form.reset();                        
+            
+        }
+
+    </script>
+    
+</body>
+</html>
