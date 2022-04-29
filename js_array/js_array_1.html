@@ -9,6 +9,22 @@
 
 </head>
 
+    <form action="" onsubmit="search(event);">
+
+        <select name="criteria" id="criteria" required>
+            <option value="">Select Field</option>
+            <option value="Company">Company</option>
+            <option value="Model">Model</option>
+            <option value="Memory (GB)">Memory</option>
+            <option value="Price (RS)">Price</option>
+        </select>
+
+        <input type="text" name="term" id="term">
+
+        <input type="submit" name="submit" id="submit">
+
+    </form>
+
     <table id="product_list">
 
     </table>
