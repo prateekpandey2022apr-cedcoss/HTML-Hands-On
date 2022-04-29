@@ -23,25 +23,39 @@
 
 </head>
 
-    <form action="" onsubmit="sort_table(event);">
+    <form action="" onsubmit="process_form(event);" id="add_product_form">
 
-        <select name="sort_order" id="sort_order">
-            <option value="">Sort Order</option>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-        </select>
+        <table>
+            <tr>
+                <td><label for="company">Company</label></td>
+                <td><input type="text" name="company" id="company"></td>
+            </tr>
+            <tr>
+                <td><label for="model">Model</label></td>
+                <td><input type="text" name="model" id="model"></td>
+            </tr>
+            <tr>
+                <td><label for="memory">Memory</label></td>
+                <td><input type="text" name="memory" id="memory"></td>
+            </tr>
+            <tr>
+                <td><label for="price">Price</label></td>
+                <td><input type="text" name="price" id="price"></td>
+            </tr>
 
-        <select name="criteria" id="criteria" required>
-            <option value="">Select Field</option>
-            <option value="Company">Company</option>
-            <option value="Model">Model</option>
-            <option value="Memory (GB)">Memory</option>
-            <option value="Price (RS)">Price</option>
-        </select>
-        
-        <input type="submit" name="submit" id="submit">
-
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit" id="submit"></td>
+            </tr>
+        </table>
+                
     </form>
+
+    <ul id="errors">
+        
+    </ul>
+
+    <hr>
 
     <table id="product_list">
 
@@ -67,6 +81,92 @@
 
 
     console.log(products);
+
+    function process_form(event)
+    {
+        event.preventDefault();
+        debugger;
+
+        let form = document.getElementById("add_product_form");
+        let ul = document.getElementById("errors");
+
+        let product_info = [];
+
+        let requried_fields = ['company', 'model', 'memory', 'price'];
+        let message = ['alphabetic', 'alphanumeric', 'numeric', 'numeric'];
+        let validators = [/^[a-z]+$/i, /\w+/i, /^\d+$/, /^\d+$/];
+        let errors = [];
+        let i = 0;
+
+        for (const element of form.elements) 
+        {
+            console.log(element);
+            if (element.type == "text")
+            {
+                if(!validators[i].test(element.value))
+                {
+                    errors.push([element.id, message[i]]);
+                }            
+                i++;
+            }
+        }
+
+        if(errors.length)
+        {
+            let ul = document.getElementById("errors");
+            ul.innerHTML = "";
+            let li_arr = [];
+            
+            for (const error of errors) 
+            {
+                let li = document.createElement("li");
+                li.appendChild(document.createTextNode(
+                    error[0] + " must contain " + error[1] +
+                    " characters"
+                ));                         
+                ul.appendChild(li);
+            }
+
+            return;
+        }
+
+        ul.innerHTML = "";
+        
+        for (const element of form.elements) 
+        {
+            console.log(element);
+
+            if (element.type == "text")
+            {
+                product_info.push(element.value);
+            }            
+        }
+
+        console.log(errors);
+        console.log(product_info);
+
+        form.reset();
+
+        // add_row(product_info);
+        add_row_at_index_2(product_info);
+    }
+
+    function add_row_at_index_2(product_info)
+    {
+        let tb = document.getElementById("product_list");
+        let row = tb.insertRow(2);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+
+        cell1.innerHTML = product_info[0];
+        cell2.innerHTML = product_info[1];
+        cell3.innerHTML = product_info[2];
+        cell4.innerHTML = product_info[3];
+        
+        return;
+    }
 
 
     function clear_table()
