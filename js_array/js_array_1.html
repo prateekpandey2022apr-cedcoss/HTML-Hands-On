@@ -5,11 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+
+        table, td{
+            border: 1px solid #e3e3e3;
+            border-collapse: collapse;            
+            padding: 10px 20px;
+        }
+
+        form{
+            margin: 20px auto;
+        }
+
+    </style>
 
 </head>
 
-    <form action="" onsubmit="search(event);">
+    <form action="" onsubmit="sort_table(event);">
+
+        <select name="sort_order" id="sort_order">
+            <option value="">Sort Order</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
 
         <select name="criteria" id="criteria" required>
             <option value="">Select Field</option>
@@ -18,9 +38,7 @@
             <option value="Memory (GB)">Memory</option>
             <option value="Price (RS)">Price</option>
         </select>
-
-        <input type="text" name="term" id="term">
-
+        
         <input type="submit" name="submit" id="submit">
 
     </form>
@@ -31,7 +49,142 @@
 
 <body>
 
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
+
+    <script>
+
+    let heading = ['Company', 'Model', 'Memory (GB)', 'Price (RS)'];
+
+    let products = [
+        ['Samsung', 'Galaxy', 64, 15000],
+        ['Nokia', 'S730', 128, 22000],
+        ['Xiaomi', 'Note', 32, 12000],
+        ['Motorola', 'G10', 32, 15000],
+        ['Apple', 'S12', 64, 25000],
+    ];
+
+    let sort_data_type, sort_order, idx_to_search;
+
+
+    console.log(products);
+
+
+    function clear_table()
+    {
+        let tb = document.getElementById("product_list");
+        let tr_count = tb.childElementCount;
+
+        for (let index = tr_count - 1; index > 0; index--) 
+        {
+            document.getElementById("product_list").deleteRow(index);   
+        }
+    }
+
+    function sort_table(event)
+    {
+        event.preventDefault();
+
+        // debugger;
+        clear_table();
+
+        let criteria = document.getElementById("criteria");
+        sort_order = document.getElementById("sort_order").value;
+
+        console.log(criteria.value, sort_order);
+
+        idx_to_search = heading.indexOf(criteria.value);        
+        sort_data_type = typeof products[0][idx_to_search];
+
+        // create dupe products list
+        let product_copy = JSON.parse(JSON.stringify(products));
+
+        product_copy.sort(comparator);
+
+        console.log(product_copy);
+
+        populate_table(product_copy);
+
+    }
+
+    function populate_table(product_copy)
+    {
+        for (const row of product_copy) 
+        {
+            // console.log(row);
+            add_row(row)
+        }
+    }
+
+
+    function comparator(a, b)
+    {
+        if(sort_data_type == "string")
+        {
+            if(a[idx_to_search] < b[idx_to_search])  
+            {
+                return sort_order == "asc" ?-1: 1;
+            }
+
+            if(a[idx_to_search] > b[idx_to_search])
+            {
+                return sort_order == "asc" ?1 : -1;
+            }
+
+            return 0;
+        }
+
+        else
+        {
+            return sort_order == "asc" ? 
+            a[idx_to_search] - b[idx_to_search] : 
+            b[idx_to_search] - a[idx_to_search];                    
+        }
+    }
+
+    function add_row(row) 
+    {
+        var tb = document.getElementById("product_list");
+        var tr = document.createElement("tr");
+        
+        var td_node_arr = []
+
+        for (const item of row) 
+        {                
+            // console.log(item);                   
+            let td = document.createElement("td")                                                
+            td.appendChild(document.createTextNode(item));
+            td_node_arr.push(td);
+        }            
+
+        // console.log(td_node_arr);                     
+
+        // console.log(td_node_arr);
+
+        tr.appendChild(td_node_arr[0]);
+        tr.appendChild(td_node_arr[1]);
+        tr.appendChild(td_node_arr[2]);
+        tr.appendChild(td_node_arr[3]);
+
+        tb.appendChild(tr);
+
+        // form.reset();        
+    }
+
+    function print_header() 
+    {
+        add_row(heading);
+    }
+
+    function page_load()
+    {
+        console.log("Page Loaded");        
+        print_header();
+        populate_table(products)
+    }
+
+    window.onload = page_load;
+
+    </script>
     
 </body>
 </html>
