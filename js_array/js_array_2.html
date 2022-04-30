@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+
+        table, td{
+            border: 1px solid #e3e3e3;
+            border-collapse: collapse;            
+            padding: 10px 20px;
+        }
+
+        form{
+            margin: 20px auto;
+        }
+
+        #invoice{
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+    <form action="" id="add_product_form">
+
+        <select name="product_id" id="product_id" required>
+        </select>
+        <input type="text" name="quantity" id="quantity"
+         placeholder="Quantity" >
+        <input type="button" value="Add" onclick="add_to_cart(event)">
+        <input type="button" value="Generate Bill" onclick="generate_invoice();">
+
+        <!-- <table>
+            <tr>
+                <td><label for="company">Company</label></td>
+                <td><input type="text" name="company" id="company"></td>
+            </tr>
+            <tr>
+                <td><label for="model">Model</label></td>
+                <td><input type="text" name="model" id="model"></td>
+            </tr>
+            <tr>
+                <td><label for="memory">Memory</label></td>
+                <td><input type="text" name="memory" id="memory"></td>
+            </tr>
+            <tr>
+                <td><label for="price">Price</label></td>
+                <td><input type="text" name="price" id="price"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit" id="submit"></td>
+            </tr>
+        </table> -->
+                
+    </form>
+
+    <ul id="errors">
+        
+    </ul>
+
+    <hr>
+    <!-- Description', 'Quanity', 'Price', 'Amount' -->
+
+    <table id="invoice">
+        <tr>
+            <td>Product ID</td>
+            <td>Product Name</td>
+            <td>Quanity</td>
+            <td>Price</td>
+            <td>Amount</td>
+        </tr>
+    </table>
+
+<body>
+
+    <!-- <script src="main.js"></script> -->
+
+    <script>
+
+    let heading = ['Company', 'Model', 'Memory (GB)', 'Price (RS)'];
+
+    let products = [
+        {id: 1, company: 'Samsung', model: 'Galaxy', memory: 64, price: 15000},
+        {id: 2, company: 'Nokia', model: 'S730', memory: 128, price: 22000},
+        {id: 3, company: 'Xiaomi', model: 'Note', memory: 32, price: 12000},
+        {id: 4, company: 'Motorola', model: 'G10', memory: 32, price: 15000},
+        {id: 5, company: 'Apple', model: 'S12', memory: 64, price: 25000},
+    ];
+
+    let cart_data = [];
+    
+    let form = document.getElementById("add_product_form");
+
+    console.log(products);
+
+    function is_exists_in_cart(product_id)
+    {
+        for (const item of cart_data) 
+        {
+            if (item.id == product_id)
+            {
+                return item.quantity;
+            }
+        }
+
+        return 0;
+    }
+
+    function update_cart(product_id, quantity)
+    {
+        for (const item of cart_data) 
+        {
+            if (item.id == product_id)
+            {
+                item.quantity = quantity;
+            }
+        }
+    }
+
+    function add_to_cart(event)
+    {
+        // debugger;
+        let product_id = document.getElementById("product_id");
+        
+        let product_name = 
+        product_id.options[product_id.selectedIndex].text        
+ 
+        let quantity = parseInt(document.getElementById("quantity").value);
+        let price = find_price(product_id.value);
+
+
+        let current_quantity = is_exists_in_cart(product_id.value);
+
+        if(current_quantity)
+        {
+            quantity = parseInt(quantity) + current_quantity;
+            update_cart(product_id.value, quantity);
+        }
+        else
+        {
+            cart_data.push({
+                id: product_id.value,
+                product_name : product_name, 
+                quantity: quantity,
+                price: price,
+                amount: quantity * price
+            })
+        }    
+        
+
+        form.reset();
+
+        console.log(cart_data);
+        console.log(cart_data);
+    }
+
+
+    function generate_invoice()
+    {
+        clear_table();
+        // let tb = document.createElement("table");
+        // tb.id = "invoice";
+        // document.body.appendChild(tb);        
+
+        document.getElementById("invoice").style.display = "block";
+
+        // debugger;
+
+        for (const item of cart_data) 
+        {
+            add_row(item, "invoice");
+        }
+
+        cart_data = [];
+    }
+
+    function find_price(product_id)
+    {
+        for (const p of products) 
+        {
+            if(p.id == product_id)    
+            {
+                return p.price;
+            }
+        }
+    }
+
+    function process_form(event)
+    {
+        event.preventDefault();
+        debugger;
+
+        let form = document.getElementById("add_product_form");
+        let ul = document.getElementById("errors");
+
+        let product_info = [];
+
+        let requried_fields = ['company', 'model', 'memory', 'price'];
+        let message = ['alphabetic', 'alphanumeric', 'numeric', 'numeric'];
+        let validators = [/^[a-z]+$/i, /\w+/i, /^\d+$/, /^\d+$/];
+        let errors = [];
+        let i = 0;
+
+        for (const element of form.elements) 
+        {
+            console.log(element);
+            if (element.type == "text")
+            {
+                if(!validators[i].test(element.value))
+                {
+                    errors.push([element.id, message[i]]);
+                }            
+                i++;
+            }
+        }
+
+        if(errors.length)
+        {
+            let ul = document.getElementById("errors");
+            ul.innerHTML = "";
+            let li_arr = [];
+            
+            for (const error of errors) 
+            {
+                let li = document.createElement("li");
+                li.appendChild(document.createTextNode(
+                    error[0] + " must contain " + error[1] +
+                    " characters"
+                ));                         
+                ul.appendChild(li);
+            }
+
+            return;
+        }
+
+        ul.innerHTML = "";
+
+        for (const element of form.elements) 
+        {
+            console.log(element);
+
+            if (element.type == "text")
+            {
+                product_info.push(element.value);
+            }            
+        }
+
+        console.log(errors);
+        console.log(product_info);
+
+        form.reset();
+
+        // add_row(product_info);
+        add_row_at_index_2(product_info);
+    }
+
+    function add_row_at_index_2(product_info)
+    {
+        let tb = document.getElementById("product_list");
+        let row = tb.insertRow(2);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+
+        cell1.innerHTML = product_info[0];
+        cell2.innerHTML = product_info[1];
+        cell3.innerHTML = product_info[2];
+        cell4.innerHTML = product_info[3];
+        
+        return;
+    }
+
+
+    function clear_table()
+    {
+        debugger;
+        let tb = document.getElementById("invoice");
+        let tr_count = tb.childElementCount;
+
+        if(tr_count)
+        {
+            for (let index = tr_count - 1; index > 0; index--) 
+            {
+                document.getElementById("invoice").deleteRow(index);   
+            }
+        }
+        
+    }
+
+    function sort_table(event)
+    {
+        event.preventDefault();
+
+        // debugger;
+        clear_table();
+
+        let criteria = document.getElementById("criteria");
+        sort_order = document.getElementById("sort_order").value;
+
+        console.log(criteria.value, sort_order);
+
+        idx_to_search = heading.indexOf(criteria.value);        
+        sort_data_type = typeof products[0][idx_to_search];
+
+        // create dupe products list
+        let product_copy = JSON.parse(JSON.stringify(products));
+
+        product_copy.sort(comparator);
+
+        console.log(product_copy);
+
+        populate_table(product_copy);
+
+    }
+
+    function populate_table(product_copy)
+    {
+        for (const row of product_copy) 
+        {
+            // console.log(row);
+            add_row(row)
+        }
+    }
+
+
+    function comparator(a, b)
+    {
+        if(sort_data_type == "string")
+        {
+            if(a[idx_to_search] < b[idx_to_search])  
+            {
+                return sort_order == "asc" ?-1: 1;
+            }
+
+            if(a[idx_to_search] > b[idx_to_search])
+            {
+                return sort_order == "asc" ?1 : -1;
+            }
+
+            return 0;
+        }
+
+        else
+        {
+            return sort_order == "asc" ? 
+            a[idx_to_search] - b[idx_to_search] : 
+            b[idx_to_search] - a[idx_to_search];                    
+        }
+    }
+
+    function add_row(row, table_id) 
+    {                
+        var tb = document.getElementById(table_id);
+        var tr = document.createElement("tr");
+        
+        var td_node_arr = []
+
+        // for (const item of row) 
+        // {                
+        //     // console.log(item);                   
+        //     let td = document.createElement("td")                                                
+        //     td.appendChild(document.createTextNode(item));
+        //     td_node_arr.push(td);
+        // }            
+
+        for(const i in row)
+        {
+            let td = document.createElement("td")                                                
+            td.appendChild(document.createTextNode(row[i]));
+            td_node_arr.push(td);
+        }
+
+        // console.log(td_node_arr);                     
+
+        // console.log(td_node_arr);
+
+        tr.appendChild(td_node_arr[0]);
+        tr.appendChild(td_node_arr[1]);
+        tr.appendChild(td_node_arr[2]);
+        tr.appendChild(td_node_arr[3]);
+        tr.appendChild(td_node_arr[4]);
+
+        tb.appendChild(tr);
+
+        // form.reset();        
+    }
+
+    function populate_select() 
+    {
+        // debugger;
+        var sel_el = document.getElementById("product_id");
+        
+        let op = document.createElement("option");
+        op.value = "";
+        op.appendChild(
+                document.createTextNode("Select Product") 
+            );
+        sel_el.appendChild(op);
+
+        for (const product of products)        
+        {
+            let op = document.createElement("option");
+            op.value = product.id;
+            op.appendChild(
+                document.createTextNode(product.company)
+            );
+
+            sel_el.appendChild(op);
+        }
+
+        // for (let index = 0; index < products.length; index++) 
+        // {
+        //     let op = document.createElement("option");
+        //     op.value = products[index][0];
+        //     op.appendChild(
+        //         document.createTextNode(products[index][0]) 
+        //     );
+
+        //     sel_el.appendChild(op);
+        // }
+
+        
+
+    }
+
+    function print_header() 
+    {
+        add_row(heading, "invoice");
+    }
+
+    function page_load()
+    {
+        console.log("Page Loaded");        
+        populate_select();        
+        // populate_table(products)
+    }
+
+    window.onload = page_load;
+
+    </script>
+    
+
+    </html>
+</body>
+<!-- </html> -->
