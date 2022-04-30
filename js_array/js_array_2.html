@@ -23,8 +23,8 @@
             display: none;
         }
 
-        #btn{
-            margin-left: 400px;
+        #invoice{
+            display: none;
         }
 
 
@@ -46,15 +46,34 @@
                 <td>Company</td>
                 <td>Model</td>
                 <td>Memory</td>
-                <td>Price</td>
-                <td>Action</td>
+                <td>Price</td>                
+                <td>Quantity</td>
             </tr>                                
 
         </table>
 
         <hr>
 
-        <button id="btn" onclick="delete_rows(event);" >Submit</button>
+        <!-- <button id="btn" onclick="delete_rows(event);" >Submit</button> -->
+
+        <select name="product_id" id="product_id" required>
+        </select>
+        <input type="text" name="quantity" id="quantity"
+         placeholder="Quantity" >
+        <input type="button" value="Add" onclick="add_to_cart(event)">
+        <input type="button" value="Generate Bill" onclick="generate_invoice();">
+
+        <hr>
+
+        <table id="invoice">
+            <tr>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Quanity</td>
+                <td>Price</td>
+                <td>Amount</td>
+            </tr>
+        </table>
 
     </form>
     
@@ -69,11 +88,16 @@
     let heading = ['Company', 'Model', 'Memory (GB)', 'Price (RS)'];
 
     let products = [
-        {id: 1, company: 'Samsung', model: 'Galaxy', memory: 64, price: 15000},
-        {id: 2, company: 'Nokia', model: 'S730', memory: 128, price: 22000},
-        {id: 3, company: 'Xiaomi', model: 'Note', memory: 32, price: 12000},
-        {id: 4, company: 'Motorola', model: 'G10', memory: 32, price: 15000},
-        {id: 5, company: 'Apple', model: 'S12', memory: 64, price: 25000},
+        {id: 1, company: 'Samsung', model: 'Galaxy', 
+            memory: 64, price: 15000, quantity: 20},
+        {id: 2, company: 'Nokia', model: 'S730', 
+            memory: 128, price: 22000, quantity: 15},
+        {id: 3, company: 'Xiaomi', model: 'Note', 
+            memory: 32, price: 12000, quantity: 21},
+        {id: 4, company: 'Motorola', model: 'G10', 
+            memory: 32, price: 15000, quantity: 13},
+        {id: 5, company: 'Apple', model: 'S12', 
+            memory: 64, price: 25000, quantity: 28},
     ];
 
     let cart_data = [];
@@ -152,9 +176,36 @@
         }
     }
 
+    function find_product_by_id(product_id)
+    {
+        debugger;
+        for (const p of products) 
+        {
+            if(p.id == product_id)
+            {
+                return p;
+            }
+        }
+    }
+
+    function update_products()
+    {
+        debugger;
+        for (const item of cart_data) 
+        {
+            let p = find_product_by_id(item.id);
+            p.quantity = p.quantity - item.quantity;
+
+            // if(find_product_by_id(item.id))
+            // {
+
+            // }
+        }
+    }
+
     function add_to_cart(event)
     {
-        // debugger;
+        debugger;
         let product_id = document.getElementById("product_id");
         
         let product_name = 
@@ -195,7 +246,11 @@
         clear_table();
         // let tb = document.createElement("table");
         // tb.id = "invoice";
-        // document.body.appendChild(tb);        
+        // document.body.appendChild(tb); 
+        
+        update_products();
+
+        console.log(products);
 
         document.getElementById("invoice").style.display = "block";
 
@@ -207,6 +262,8 @@
         }
 
         cart_data = [];
+
+        populate_table(products);
     }
 
     function find_price(product_id)
@@ -413,13 +470,13 @@
             }                        
         }
 
-        let td = document.createElement("td")                                                
-        let input = document.createElement("input");        
-        input.type="checkbox";
-        input.setAttribute("data-id", row.id);
-        input.className = "del_checkbox";
-        td.appendChild(input);        
-        td_node_arr.push(td);
+        // let td = document.createElement("td")                                                
+        // let input = document.createElement("input");        
+        // input.type="checkbox";
+        // input.setAttribute("data-id", row.id);
+        // input.className = "del_checkbox";
+        // td.appendChild(input);        
+        // td_node_arr.push(td);
 
         // console.log(td_node_arr);                     
 
@@ -490,7 +547,7 @@
     function page_load()
     {
         console.log("Page Loaded");        
-        // populate_select();  
+        populate_select();  
         // print_header()      
         document.getElementById("product_table").style.display = "block";
         populate_table(products)        
