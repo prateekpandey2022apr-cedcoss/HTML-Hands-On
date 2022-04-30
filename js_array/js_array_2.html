@@ -19,9 +19,14 @@
             margin: 20px auto;
         }
 
-        #invoice{
+        #product_table{
             display: none;
         }
+
+        #btn{
+            margin-left: 400px;
+        }
+
 
     </style>
 
@@ -29,55 +34,31 @@
 
     <form action="" id="add_product_form">
 
-        <select name="product_id" id="product_id" required>
+        <!-- <select name="product_id" id="product_id" required>
         </select>
         <input type="text" name="quantity" id="quantity"
          placeholder="Quantity" >
         <input type="button" value="Add" onclick="add_to_cart(event)">
-        <input type="button" value="Generate Bill" onclick="generate_invoice();">
+        <input type="button" value="Generate Bill" onclick="generate_invoice();"> -->            
 
-        <!-- <table>
+        <table id="product_table">
             <tr>
-                <td><label for="company">Company</label></td>
-                <td><input type="text" name="company" id="company"></td>
-            </tr>
-            <tr>
-                <td><label for="model">Model</label></td>
-                <td><input type="text" name="model" id="model"></td>
-            </tr>
-            <tr>
-                <td><label for="memory">Memory</label></td>
-                <td><input type="text" name="memory" id="memory"></td>
-            </tr>
-            <tr>
-                <td><label for="price">Price</label></td>
-                <td><input type="text" name="price" id="price"></td>
-            </tr>
+                <td>Company</td>
+                <td>Model</td>
+                <td>Memory</td>
+                <td>Price</td>
+                <td>Action</td>
+            </tr>                                
 
-            <tr>
-                <td></td>
-                <td><input type="submit" name="submit" id="submit"></td>
-            </tr>
-        </table> -->
-                
+        </table>
+
+        <hr>
+
+        <button id="btn" onclick="delete_rows(event);" >Submit</button>
+
     </form>
-
-    <ul id="errors">
-        
-    </ul>
-
-    <hr>
+    
     <!-- Description', 'Quanity', 'Price', 'Amount' -->
-
-    <table id="invoice">
-        <tr>
-            <td>Product ID</td>
-            <td>Product Name</td>
-            <td>Quanity</td>
-            <td>Price</td>
-            <td>Amount</td>
-        </tr>
-    </table>
 
 <body>
 
@@ -100,6 +81,52 @@
     let form = document.getElementById("add_product_form");
 
     console.log(products);
+
+    function delete_rows(event) 
+    {
+        event.preventDefault();
+
+        let checkbox_nodes = document.querySelectorAll(".del_checkbox");
+        let product_to_del = []
+
+        for (const iterator of checkbox_nodes) 
+        {
+            console.log(iterator, iterator.checked, 
+            iterator.getAttribute("data-id") );            
+
+            if(iterator.checked)
+            {
+                product_to_del.push(parseInt(
+                    iterator.getAttribute("data-id"))
+                    );
+            }
+        }
+
+        console.log(product_to_del);
+
+        let new_product_list = [];
+
+        debugger;
+
+        for (const product of products) 
+        {
+            if(!product_to_del.includes(product.id))
+            {
+                new_product_list.push(product);
+            }
+        }
+
+        // replacing ...
+        products = new_product_list;
+
+        console.log(new_product_list);        
+
+        clear_table();
+
+        populate_table(new_product_list);
+
+        console.log("deleting ...");
+    }
 
     function is_exists_in_cart(product_id)
     {
@@ -283,14 +310,14 @@
     function clear_table()
     {
         debugger;
-        let tb = document.getElementById("invoice");
+        let tb = document.getElementById("product_table");
         let tr_count = tb.childElementCount;
 
         if(tr_count)
         {
             for (let index = tr_count - 1; index > 0; index--) 
             {
-                document.getElementById("invoice").deleteRow(index);   
+                document.getElementById("product_table").deleteRow(index);   
             }
         }
         
@@ -322,12 +349,12 @@
 
     }
 
-    function populate_table(product_copy)
+    function populate_table(products)
     {
-        for (const row of product_copy) 
+        for (const row of products) 
         {
             // console.log(row);
-            add_row(row)
+            add_row(row, "product_table", ['id'])
         }
     }
 
@@ -357,8 +384,9 @@
         }
     }
 
-    function add_row(row, table_id) 
-    {                
+    function add_row(row, table_id, exclude = []) 
+    {           
+        debugger;     
         var tb = document.getElementById(table_id);
         var tr = document.createElement("tr");
         
@@ -372,22 +400,43 @@
         //     td_node_arr.push(td);
         // }            
 
+        let count_td = 0;
+
         for(const i in row)
         {
-            let td = document.createElement("td")                                                
-            td.appendChild(document.createTextNode(row[i]));
-            td_node_arr.push(td);
+            if(!exclude.includes(i))
+            {
+                let td = document.createElement("td")                                                
+                td.appendChild(document.createTextNode(row[i]));
+                td_node_arr.push(td);
+                count_td++;
+            }                        
         }
+
+        let td = document.createElement("td")                                                
+        let input = document.createElement("input");        
+        input.type="checkbox";
+        input.setAttribute("data-id", row.id);
+        input.className = "del_checkbox";
+        td.appendChild(input);        
+        td_node_arr.push(td);
 
         // console.log(td_node_arr);                     
 
         // console.log(td_node_arr);
 
-        tr.appendChild(td_node_arr[0]);
-        tr.appendChild(td_node_arr[1]);
-        tr.appendChild(td_node_arr[2]);
-        tr.appendChild(td_node_arr[3]);
-        tr.appendChild(td_node_arr[4]);
+        for (let index = 0; index < td_node_arr.length; index++) {
+            tr.appendChild(td_node_arr[index]);            
+        }
+
+        
+
+        // tr.appendChild(td_node_arr[0]);
+        // tr.appendChild(td_node_arr[1]);
+        // tr.appendChild(td_node_arr[2]);
+        // tr.appendChild(td_node_arr[3]);
+
+        // tr.appendChild(td_node_arr[4]);
 
         tb.appendChild(tr);
 
@@ -434,14 +483,17 @@
 
     function print_header() 
     {
-        add_row(heading, "invoice");
+        debugger;
+        add_row(heading, "product_table");
     }
 
     function page_load()
     {
         console.log("Page Loaded");        
-        populate_select();        
-        // populate_table(products)
+        // populate_select();  
+        // print_header()      
+        document.getElementById("product_table").style.display = "block";
+        populate_table(products)        
     }
 
     window.onload = page_load;
