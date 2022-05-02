@@ -8,15 +8,15 @@
 </head>
 <body>
 
-<!-- 
+
     <table id="emp_list">
         <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Total Salary</td>
-            <td>Action</td>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Total Salary</th>
+            <!-- <td>Action</td> -->
         </tr>
-    </table> -->
+    </table>
 
 
     <script>
@@ -50,18 +50,18 @@
             let td_3 = document.createElement("td");
             td_3.appendChild(document.createTextNode(emp.salary))
 
-            let td_4 = document.createElement("td");
+            // let td_4 = document.createElement("td");
 
-            let del_link = document.createElement("a");
-            del_link.innerText = "Delete";
-            del_link.href = "#";
-            td_4.appendChild(del_link)
+            // let del_link = document.createElement("a");
+            // del_link.innerText = "Delete";
+            // del_link.href = "#";
+            // td_4.appendChild(del_link)
             
 
             tr.appendChild(td_1);
             tr.appendChild(td_2);
             tr.appendChild(td_3);
-            tr.appendChild(td_4);
+            // tr.appendChild(td_4);
 
             tb.appendChild(tr);
 
@@ -73,10 +73,10 @@
         }
 
         let emp_1 = new Employee(1, "AA", 100000);
-        let emp_2 = new Employee(1, "BB", 200000);
-        let emp_3 = new Employee(1, "CC", 300000);
+        let emp_2 = new Employee(1, "BB", 100000);
+        let emp_3 = new Employee(1, "CC", 100000);
 
-        // console.log(emp_1);
+        console.log(emp_1);
 
         add_emp_to_json(emp_1)
         add_emp_to_json(emp_2)
@@ -84,7 +84,10 @@
 
         console.log(json_array);
 
- 
+        for (const emp of json_array.employees) {
+            // console.log(emp);
+            add_emp(emp)
+        }
 
     </script>
     
