@@ -8,7 +8,7 @@
 
     <style>
         .error{
-            color: red;
+            
         }
     </style>
 
@@ -42,6 +42,9 @@
                 this.salary = salary;    
             }
         }
+
+        let emp_to_str = (emp) => 
+        `Name: ${emp.name} 15% Salary: ${emp.salary * 0.15}`;
 
         function add_emp(emp){
             let tb = document.getElementById("emp_list");
@@ -106,10 +109,10 @@
             json_array.employees.push(emp);
         }
 
-        let emp_1 = new Employee(1, "AA", "a100000");
+        let emp_1 = new Employee(1, "AA", 100000);
         let emp_2 = new Employee(2, "BB", 200000);
         let emp_3 = new Employee(3, "CC", 300000);
-        let emp_4 = new Employee(4, "DD", "$$$$$$");
+        let emp_4 = new Employee(4, "DD", 400000);
 
         console.log(emp_1);
 
@@ -124,6 +127,16 @@
             // console.log(emp);
             add_emp(emp)
         }
+
+        let output = ""
+
+        for (const emp of json_array.employees) {
+            output += emp_to_str(emp) + "<br>";
+        }
+
+        let p = document.createElement("p");
+        p.innerHTML = output;
+        document.body.appendChild(p);
 
     </script>
     
