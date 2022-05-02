@@ -32,24 +32,24 @@
 
 </head>
 
-    <form action="" id="add_rating" onsubmit="process_rating(event);">
+
+
+    <form action="" id="price_range_form" onsubmit="process_form(event);">
 
         <!-- <select name="product_id" id="product_id" required>
         </select>
         <input type="text" name="quantity" id="quantity"
          placeholder="Quantity" >
-        <input type="button" value="Add" onclick="add_to_cart(event)">
-        <input type="button" value="Generate Bill" onclick="generate_invoice();"> -->            
+min_price<input type="min_price" value="Add" onclick="add_to_cart(event)max_price
+        <input type="max_priceon" value="Generate Bill" onclick="generate_invoice();"> -->            
 
         <hr>
 
         <!-- <button id="btn" onclick="delete_rows(event);" >Submit</button> -->
 
-        <select name="product_id" id="product_id" required>
-        </select>
-        <input type="text" name="rating" id="rating"
-         placeholder="Rating" required>
-        <input type="submit" value="Rate"  >
+        <input type="text" name=" min_price" id="min_price" placeholder="Minimum Price" required>
+        <input type="text" name=" max_price" id="max_price" placeholder="Maximum Price" required>
+        <input type="submit" value="Search"  >
 
         <hr>
 
@@ -59,7 +59,7 @@
                 <td>Model</td>
                 <td>Memory</td>
                 <td>Price</td>                
-                <td>Rating</td>
+                <!-- <td>Rating</td> -->
             </tr>                                
 
         </table>
@@ -88,15 +88,15 @@
 
     let products = [
         {id: 1, company: 'Samsung', model: 'Galaxy', 
-            memory: 64, price: 15000, rating: 0},
+            memory: 64, price: 15000, },
         {id: 2, company: 'Nokia', model: 'S730', 
-            memory: 128, price: 22000, rating: 0},
+            memory: 128, price: 22000, },
         {id: 3, company: 'Xiaomi', model: 'Note', 
-            memory: 32, price: 12000, rating: 0},
+            memory: 32, price: 12000, },
         {id: 4, company: 'Motorola', model: 'G10', 
-            memory: 32, price: 15000, rating: 0},
+            memory: 32, price: 15000, },
         {id: 5, company: 'Apple', model: 'S12', 
-            memory: 64, price: 25000, rating: 0},
+            memory: 64, price: 25000, },
     ];
 
     let cart_data = [];
@@ -344,73 +344,98 @@
         }
     }
 
+
+    function find_by_price(min, max) 
+    {
+        let products_by_price = [];
+
+        for (const p of products) 
+        {
+            if( p.price >= min && p.price <= max)
+            {
+                products_by_price.push(p);
+            }
+        } 
+
+        return products_by_price;
+    }
+    
+
     function process_form(event)
     {
         event.preventDefault();
         debugger;
 
-        let form = document.getElementById("add_product_form");
-        let ul = document.getElementById("errors");
+        let min_price = document.getElementById("min_price");
+        let max_price = document.getElementById("max_price");
 
-        let product_info = [];
+        // let product_info = [];
 
-        let requried_fields = ['company', 'model', 'memory', 'price'];
-        let message = ['alphabetic', 'alphanumeric', 'numeric', 'numeric'];
-        let validators = [/^[a-z]+$/i, /\w+/i, /^\d+$/, /^\d+$/];
-        let errors = [];
-        let i = 0;
+        let product_by_price = find_by_price(min_price.value, max_price.value);
 
-        for (const element of form.elements) 
-        {
-            console.log(element);
-            if (element.type == "text")
-            {
-                if(!validators[i].test(element.value))
-                {
-                    errors.push([element.id, message[i]]);
-                }            
-                i++;
-            }
-        }
+        clear_table();
 
-        if(errors.length)
-        {
-            let ul = document.getElementById("errors");
-            ul.innerHTML = "";
-            let li_arr = [];
+        populate_table(product_by_price);
+
+        // let requried_fields = ['company', 'model', 'memory', 'price'];
+        // let message = ['alphabetic', 'alphanumeric', 'numeric', 'numeric'];
+        // let validators = [/^[a-z]+$/i, /\w+/i, /^\d+$/, /^\d+$/];
+        // let errors = [];
+        // let i = 0;
+
+        // for (const element of form.elements) 
+        // {
+        //     console.log(element);
+        //     if (element.type == "text")
+        //     {
+        //         if(!validators[i].test(element.value))
+        //         {
+        //             errors.push([element.id, message[i]]);
+        //         }            
+        //         i++;
+        //     }
+        // }
+
+        // if(errors.length)
+        // {
+        //     let ul = document.getElementById("errors");
+        //     ul.innerHTML = "";
+        //     let li_arr = [];
             
-            for (const error of errors) 
-            {
-                let li = document.createElement("li");
-                li.appendChild(document.createTextNode(
-                    error[0] + " must contain " + error[1] +
-                    " characters"
-                ));                         
-                ul.appendChild(li);
-            }
+        //     for (const error of errors) 
+        //     {
+        //         let li = document.createElement("li");
+        //         li.appendChild(document.createTextNode(
+        //             error[0] + " must contain " + error[1] +
+        //             " characters"
+        //         ));                         
+        //         ul.appendChild(li);
+        //     }
 
-            return;
-        }
+        //     return;
+        // }
 
-        ul.innerHTML = "";
+        // ul.innerHTML = "";
 
-        for (const element of form.elements) 
-        {
-            console.log(element);
+        // for (const element of form.elements) 
+        // {
+        //     console.log(element);
 
-            if (element.type == "text")
-            {
-                product_info.push(element.value);
-            }            
-        }
+        //     if (element.type == "text")
+        //     {
+        //         product_info.push(element.value);
+        //     }            
+        // }
 
-        console.log(errors);
-        console.log(product_info);
+        // console.log(errors);
+        // console.log(product_info);
 
-        form.reset();
+        // form.reset();
 
-        // add_row(product_info);
-        add_row_at_index_2(product_info);
+        // // add_row(product_info);
+        // add_row_at_index_2(product_info);
+
+        document.getElementById("price_range_form").reset();
     }
 
     function add_row_at_index_2(product_info)
@@ -614,7 +639,7 @@
     function page_load()
     {
         console.log("Page Loaded");        
-        populate_select();  
+        // populate_select();  
         // print_header()      
         document.getElementById("product_table").style.display = "block";
         populate_table(products)        
