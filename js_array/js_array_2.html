@@ -32,7 +32,7 @@
 
 </head>
 
-    <form action="" id="add_product_form">
+    <form action="" id="add_rating" onsubmit="process_rating(event);">
 
         <!-- <select name="product_id" id="product_id" required>
         </select>
@@ -41,31 +41,30 @@
         <input type="button" value="Add" onclick="add_to_cart(event)">
         <input type="button" value="Generate Bill" onclick="generate_invoice();"> -->            
 
-        <table id="product_table">
-            <tr>
-                <td>Company</td>
-                <td>Model</td>
-                <td>Memory</td>
-                <td>Price</td>                
-                <td>Quantity</td>
-            </tr>                                
-
-        </table>
-
         <hr>
 
         <!-- <button id="btn" onclick="delete_rows(event);" >Submit</button> -->
 
         <select name="product_id" id="product_id" required>
         </select>
-        <input type="text" name="quantity" id="quantity"
-         placeholder="Quantity" >
-        <input type="button" value="Add" onclick="add_to_cart(event)">
-        <input type="button" value="Generate Bill" onclick="generate_invoice();">
+        <input type="text" name="rating" id="rating"
+         placeholder="Rating" required>
+        <input type="submit" value="Rate"  >
 
         <hr>
 
-        <table id="invoice">
+        <table id="product_table">
+            <tr>
+                <td>Company</td>
+                <td>Model</td>
+                <td>Memory</td>
+                <td>Price</td>                
+                <td>Rating</td>
+            </tr>                                
+
+        </table>
+
+        <!-- <table id="invoice">
             <tr>
                 <td>Product ID</td>
                 <td>Product Name</td>
@@ -73,7 +72,7 @@
                 <td>Price</td>
                 <td>Amount</td>
             </tr>
-        </table>
+        </table> -->
 
     </form>
     
@@ -89,15 +88,15 @@
 
     let products = [
         {id: 1, company: 'Samsung', model: 'Galaxy', 
-            memory: 64, price: 15000, quantity: 20},
+            memory: 64, price: 15000, rating: 0},
         {id: 2, company: 'Nokia', model: 'S730', 
-            memory: 128, price: 22000, quantity: 15},
+            memory: 128, price: 22000, rating: 0},
         {id: 3, company: 'Xiaomi', model: 'Note', 
-            memory: 32, price: 12000, quantity: 21},
+            memory: 32, price: 12000, rating: 0},
         {id: 4, company: 'Motorola', model: 'G10', 
-            memory: 32, price: 15000, quantity: 13},
+            memory: 32, price: 15000, rating: 0},
         {id: 5, company: 'Apple', model: 'S12', 
-            memory: 64, price: 25000, quantity: 28},
+            memory: 64, price: 25000, rating: 0},
     ];
 
     let cart_data = [];
@@ -105,6 +104,45 @@
     let form = document.getElementById("add_product_form");
 
     console.log(products);
+
+    function process_rating(event) 
+    {
+        event.preventDefault();
+
+        let product_id = document.getElementById("product_id");
+        let rating = document.getElementById("rating");
+
+        // let product = find_product_by_id(product_id.value);
+
+        update_rating(product_id.value, rating.value);
+
+        clear_table();
+
+        populate_table(products);
+
+        document.getElementById("add_rating").reset();
+    }
+
+    function update_rating(product_id, rating)
+    {
+        let product = find_product_by_id(product_id);
+        product.rating = rating;
+    }
+
+    function update_products()
+    {
+        debugger;
+        for (const item of cart_data) 
+        {
+            let p = find_product_by_id(item.id);
+            p.quantity = p.quantity - item.quantity;
+
+            // if(find_product_by_id(item.id))
+            // {
+
+            // }
+        }
+    }
 
     function delete_rows(event) 
     {
@@ -176,6 +214,7 @@
         }
     }
 
+    
     function find_product_by_id(product_id)
     {
         debugger;
@@ -188,20 +227,54 @@
         }
     }
 
-    function update_products()
+
+    // function update_products()
+    // {
+    //     debugger;
+    //     for (const item of cart_data) 
+    //     {
+    //         let p = find_product_by_id(item.id);
+    //         p.quantity = p.quantity - item.quantity;
+
+    //         // if(find_product_by_id(item.id))
+    //         // {
+
+    //         // }
+    //     }
+    // }
+
+    function process_inventory(event)
     {
+        event.preventDefault();
         debugger;
-        for (const item of cart_data) 
-        {
-            let p = find_product_by_id(item.id);
-            p.quantity = p.quantity - item.quantity;
+        let product_id = document.getElementById("product_id").value;
+        let quantity = document.getElementById("quantity").value;
 
-            // if(find_product_by_id(item.id))
-            // {
+        update_inventory(product_id, quantity);
 
-            // }
-        }
+        clear_table();
+
+        populate_table(products);
+
+        document.getElementById("add_product_form").reset();
+
     }
+
+    function update_inventory(product_id, quantity)
+    {
+
+        let product = find_product_by_id(product_id);
+        product.quantity = quantity;
+
+        // for (const p of products) 
+        // {
+        //     if(p.id == product_id)
+        //     {
+        //         p.quantity = quantity;
+        //     }
+        // }
+    }
+
 
     function add_to_cart(event)
     {
@@ -246,11 +319,7 @@
         clear_table();
         // let tb = document.createElement("table");
         // tb.id = "invoice";
-        // document.body.appendChild(tb); 
-        
-        update_products();
-
-        console.log(products);
+        // document.body.appendChild(tb);        
 
         document.getElementById("invoice").style.display = "block";
 
@@ -262,8 +331,6 @@
         }
 
         cart_data = [];
-
-        populate_table(products);
     }
 
     function find_price(product_id)
@@ -561,3 +628,4 @@
     </html>
 </body>
 <!-- </html> -->
+
