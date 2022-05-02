@@ -8,19 +8,25 @@
 </head>
 <body>
 
-
+<!-- 
     <table id="emp_list">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Total Salary</th>
-            <th>Action</th>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total Salary</td>
+            <td>Action</td>
         </tr>
-    </table>
+    </table> -->
 
 
     <script>
 
+
+        let json_array = {"employees": [] };
+
+        // "emp": [ {}, {}, {} ]
+
+        // {}
 
         class Employee{
             constructor(id, name, salary) {
@@ -61,11 +67,24 @@
 
         }   
 
-        let emp_1 = new Employee(1, "John", 8000);
-       
-        console.log(emp_1);        
 
-        add_emp(emp_1);
+        function add_emp_to_json(emp) {
+            json_array.employees.push(emp);
+        }
+
+        let emp_1 = new Employee(1, "AA", 100000);
+        let emp_2 = new Employee(1, "BB", 200000);
+        let emp_3 = new Employee(1, "CC", 300000);
+
+        // console.log(emp_1);
+
+        add_emp_to_json(emp_1)
+        add_emp_to_json(emp_2)
+        add_emp_to_json(emp_3)
+
+        console.log(json_array);
+
+ 
 
     </script>
     
