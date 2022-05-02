@@ -5,79 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-
-        #emp_list{
-            display: none;
-        }
-
-
-    </style>
 </head>
 <body>
 
-    <form action="" id="add_emp" onsubmit="process_form(event);">
-        <table>
-            <tr>
-                <td>ID</td>
-                <td><input type="text" name="id" id="id" required></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="name" id="name" required></td>
-            </tr>
-            <tr>
-                <td>Basic Sal</td>
-                <td><input type="text" name="salary" id="salary" required></td>
-            </tr>
-            <tr>                
-                <td><input type="submit" value="Add"></td>
-                <td></td>
-            </tr>
-        </table>
 
-        <table id="emp_list">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Total Salary</th>
-                <th>Action</th>
-            </tr>
-        </table>
-
-    </form>
+    <table id="emp_list">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Total Salary</th>
+            <th>Action</th>
+        </tr>
+    </table>
 
 
     <script>
 
-        function process_form(event) {
-            event.preventDefault();
 
-            let form = document.getElementById("add_emp");
-
-            console.log(form);
-
-            let emp = {}
-
-            for (const el of form.elements) 
-            {
-                if(el.type == "text")
-                {
-                    console.log(el);
-                    emp[el.name] = el.value;
-                }                
+        class Employee{
+            constructor(id, name, salary) {
+                this.id = id;    
+                this.name = name;    
+                this.salary = salary;    
             }
-
-            console.log(emp);
-
-            document.getElementById("emp_list").style.display = "block";
-
-            add_emp(emp);
-
-            form.reset();
         }
-
 
         function add_emp(emp){
             let tb = document.getElementById("emp_list");
@@ -108,11 +59,17 @@
 
             tb.appendChild(tr);
 
-            
-
         }   
+
+        let emp_1 = new Employee(1, "John", 8000);
+       
+        console.log(emp_1);        
+
+        add_emp(emp_1);
 
     </script>
     
 </body>
 </html>
+
+
