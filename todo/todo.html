@@ -1,0 +1,362 @@
+
+<html>
+    <head>
+        <title>TODO List</title>
+        <link href="style.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <h2>TODO LIST</h2>
+            <h3>Add Item</h3>
+            <p>
+                <input id="new-task" type="text" required>
+                <button onclick="process_form(event);">Add</button>
+            </p>
+    
+            <h3>Todo</h3>
+            <ul id="incomplete-tasks" >
+                <!-- <li data-id="1">
+                    <input type="checkbox"><label>Pay Bills</label>
+                    <input type="text"><button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </li>
+                <li data-id="2">
+                    <input type="checkbox"><label>Go Shopping</label>
+                    <input type="text" value="Go Shopping">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </li> -->
+
+            </ul>
+    
+            <h3>Completed</h3>
+            <ul id="completed-tasks">
+                <!-- <li>
+                    <input type="checkbox" checked>
+                    <label>See the Doctor</label>
+                    <input type="text">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </li> -->
+            </ul>
+        </div>
+        <script>
+
+            let to_dos = {'completed-tasks': [] , 'incomplete-tasks': [] , };
+
+            let to_dos_count = 0;
+            // let to_dos = [];
+            let completed_to_dos = [];
+
+
+            function process_form(e) {
+                e.preventDefault();
+
+                console.log(e.target);
+
+                if(e.target.innerText == "Add"){
+                    add_task(e);
+                }
+
+                else {
+                    edit_task(e);                    
+                }
+            }
+
+            // function save_task(task, from)
+            // {
+            //     debugger;
+            //     let task_obj = {id: to_dos_count, task: task, from: from};
+            //     to_dos[from].push(task_obj);
+            //     localStorage.setItem("tasks", JSON.stringify(to_dos));
+            // }
+
+            // function update_task(id, task, from) {
+            //     for (const iterator of to_dos[from]) {
+            //         if(iterator.id  == id){
+            //             iterator.task = task;
+            //         }
+            //     }
+            // }
+
+            // function update_task(id, task, from) {
+            //     for (const iterator of to_dos[from]) {
+            //         if(iterator.id  == id){
+            //             iterator.task = task;
+            //         }
+            //     }
+            // }
+
+            function delete_task(id){
+                
+            }
+
+            function add_task()
+            {
+                debugger;
+                // e.preventDefault();
+                // console.log(e);
+
+                // update_todo_count();
+                // to_dos_count =  parseInt(get_todo_count())                
+                let new_task = document.getElementById("new-task");
+
+                to_dos_count += 1;
+                let ul = document.getElementById("incomplete-tasks");
+
+                let li = document.createElement("li");
+                li.setAttribute("data-id", to_dos_count);
+
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                input.className = "done";
+                li.appendChild(input);
+
+                let label = document.createElement("label");
+                label.innerText = new_task.value;
+                li.appendChild(label);
+
+                let btn_edit = document.createElement("button");
+                btn_edit.className = "edit";
+                btn_edit.innerText = "Edit"
+                li.appendChild(btn_edit);
+
+                let btn_del = document.createElement("button");
+                btn_del.className = "delete";
+                btn_del.innerText = "Delete";
+                li.appendChild(btn_del);
+
+                console.log(li);
+                                
+                ul.appendChild(li);
+
+                // save_task(new_task.value, ul.id);
+
+                clear_form();
+
+                
+                set_focus();
+            }
+
+            function set_focus(){
+                document.getElementById("new-task").focus();
+            }
+
+            function clear_form(params) {
+                document.getElementById("new-task").value = "";
+            }
+
+            // function update_todo_count(){
+            //     localStorage.setItem("count", to_dos_count + 1);                
+            // }
+
+            // function get_todo_count(params) {
+            //     return localStorage.getItem('count');
+            // }
+
+            // function set_todo_count(params) {
+            //     to_dos_count = localStorage.getItem('count') ;
+
+            //     if(!to_dos_count){
+            //         localStorage.setItem('count', 0);
+            //     }                
+            // }
+
+
+            function edit_task(e) {
+
+                debugger;
+                let input = document.querySelector("p > input");
+
+                let task_id = e.target.getAttribute("data-id");
+                let from = e.target.getAttribute("data-from");
+                
+                let parent_el = e.target
+
+                let li = document.querySelector(`#${from} li[data-id="${task_id}"]`);
+                li.querySelector("label").innerText = input.value;
+
+                // let  e.target.previousElementSibling;
+
+                // change button innerText and and remove data-id attr
+                e.target.innerText = "Add";
+                e.target.removeAttribute("data-id");
+
+                // set input field to empty
+                input.value = "";
+
+                // let btn = document.querySelector("p > button");
+                // btn.innerText = "Add";
+
+                // e.target.
+            }
+
+
+            function populate_form(el){
+                console.log(`Editing ${el}`);
+
+                let input = document.querySelector("p > input");
+                let btn = document.querySelector("p > button");
+
+                input.value = el.querySelector('label').innerText;
+                btn.innerText = "Update";
+                btn.setAttribute("data-id", el.getAttribute("data-id"));
+                btn.setAttribute("data-from", el.parentElement.id);
+                // edit_task(el);
+                // console.log(el.querySelector('label').innerText="@@@@@@@@@@");
+                set_focus();
+            }
+
+
+            function delete_task(el){
+                console.log(`Deleting ${el}`);
+                el.remove();
+            }
+
+            function complete_task(el) {
+
+                debugger;
+
+                let li_clone = el.cloneNode(true);
+                el.style.display = "none";
+                let ul_completed = document.getElementById("completed-tasks");
+                ul_completed.appendChild(li_clone);
+            }
+
+
+            function complete_to_incomplete(el) {
+                debugger;
+                console.log("com to incom");
+                let task_id = el.getAttribute("data-id");
+                let li = document.querySelector(`#incomplete-tasks li[data-id="${task_id}"]`);
+                li.style.display = "block";
+                li.querySelector(".done").checked = false;
+                el.remove();
+            }
+            
+
+            function page_load(params) {
+                
+                // set_todo_count();
+
+                // let li_arr = 
+                // document.querySelectorAll("#incomplete-tasks .edit");
+
+                // li_arr.forEach(function (el) {
+                //     console.log(el);
+
+                //     el.addEventListener('click', function (event) {
+                //         console.log('clicked');
+
+                //         console.log(el.parentElement);
+
+                //     })
+                // })
+
+                
+                let ul_imcomplete = document.getElementById("incomplete-tasks");
+
+                ul_imcomplete.addEventListener('click',  function (e) {
+                    console.log(e);
+
+                    if(e.target && e.target.className == 'edit'){
+                        
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        populate_form(e.target.parentElement);
+                        
+                    }
+                    
+                    if(e.target && e.target.className == 'delete'){
+                        
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        if(confirm("Are you sure?")){
+                            delete_task(e.target.parentElement);   
+                        }
+                        
+                    }
+
+                    if(e.target && e.target.className == 'done'){
+
+                        debugger;
+                        
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        complete_task(e.target.parentElement);
+
+                    }
+
+                });
+
+
+                ////////////////////////////////////////////////////////////
+
+                let ul_completed = document.getElementById("completed-tasks");
+
+                ul_completed.addEventListener("click", function(e){
+                    if(e.target && e.target.className == 'done'){
+
+                        debugger;
+
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        // complete_task(e.target.parentElement);
+
+                        complete_to_incomplete(e.target.parentElement);
+
+                    }
+
+                    if(e.target && e.target.className == 'edit'){
+                        
+                        debugger;
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        populate_form(e.target.parentElement);
+                        
+                    }
+
+                    if(e.target && e.target.className == 'delete'){
+                        
+                        console.log(e.target);
+                        console.log(e);
+
+                        console.log(e.target.parentElement.getAttribute("data-id"));
+
+                        if(confirm("Are you sure?")){
+                            delete_task(e.target.parentElement);   
+                        }
+                        
+                    }
+
+                });
+            }
+
+            // function
+
+            
+
+
+            window.onload = page_load;
+
+        </script>
+
+    </body>
+</html>
+
+<!-- https://pastebin.com/raw/Exd01axi -->
