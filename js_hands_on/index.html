@@ -10,16 +10,20 @@
 
     <script>
 
-        // Setup
-        let processed = 0;
-
-        function processArg(num) {
-            return (num + 3) / 5;
+        function nextInLine(arr, item) {
+            // Only change code below this line
+            arr.push(item);  
+            return arr.shift();
+            // Only change code above this line
         }
 
-        // Only change code below this line
+        // Setup
+        const testArr = [1, 2, 3, 4, 5];
 
-        processed = processArg(7);
+        // Display code
+        console.log("Before: " + JSON.stringify(testArr));
+        console.log(nextInLine(testArr, 6));
+        console.log("After: " + JSON.stringify(testArr));
 
 
     </script>
