@@ -19,27 +19,12 @@
           
       }
 
-      table, td, tr, th{
-          border: 1px solid #e3e3e3;
-          padding: 5px 10px;
-      }
-      
-      table {
-          border-collapse: collapse;
-          width: 100%;
-          margin: 5% auto;
+      form{
+
       }
 
-      .odd_rows {
-          background-color: dodgerblue;
-      }
-
-      .even_rows {
-        background-color: LightGrey;
-      }
-
-      .head{
-          font-weight: bold;
+      .red{
+          background-color: red;
       }
 
     </style>
@@ -50,82 +35,67 @@
 
     <div class="container">
 
+    <form action="" id="form"> 
 
-    <p>
-        <input type="button" value="Color Even Rows" id="even_btn">
-        <input type="button" value="Color Odd Rows" id="odd_btn">
-    </p>        
+        <table>
+            <tr>
+                <td><label for="first_name">First Name</label></td>
+            </tr>
+            <tr>                    
+                <td><input type="text" name="first_name" 
+                    id="first_name"></td>
+            </tr>
 
-    <table>
 
-        <tr class="head">
-            <td>Company</td>
-            <td>Contact</td>
-            <td>Country</td>            
-        </tr>
+            <tr>
+                <td><label for="last_name">Last Name</label></td>
+            </tr>
+            <tr>                    
+                <td><input type="text" name="last_name" 
+                    id="last_name"></td>
+            </tr>
 
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
+            <tr>
+                <td></td>
+            </tr>
 
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
+            <tr>
+                <td><input type="submit" name="submit" ></td>                
+            </tr>
 
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
+        </table>
 
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
+    </form>
 
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
-
-        <tr>
-            <td>ABC</td>
-            <td>Jerry</td>
-            <td>Norway</td>
-        </tr>
-
-    </table>
-
-</div>
+    </div>
     
     <script>
 
+        $("#form").on("submit", function (e) {
+            e.preventDefault();
+            console.log("form");
 
-        $("#even_btn").on('click', function(){
-            console.log('even ..');
-            color_even();
+            let form_data = $(this).serializeArray();
+            $("input").removeClass("red")
+
+            console.log(form_data);
+
+            for (const field of form_data) {                
+                console.log(field);
+
+                if(!field.value)
+                {
+                    $(`#${field.name}`).focus();
+                    $(`#${field.name}`).addClass("red");
+                    alert(`${field.name} is empty`);
+                    return;
+                }
+            }
+
+            // form filled successfully
+            console.log(form_data);
+
         });
-
-        $("#odd_btn").on('click', function(){
-            console.log('odd ...');
-            color_odd();
-        });
-
-        function color_odd(){
-            // $("tr:nth-of-type(even)").removeClass("even_rows");
-            $("tr:nth-of-type(odd)").toggleClass("odd_rows");
-        }
-
-        function color_even(){
-            // $("tr:nth-of-type(odd)").removeClass("odd_rows");
-            $("tr:nth-of-type(even)").toggleClass("even_rows");
-        }
 
     </script>
 
