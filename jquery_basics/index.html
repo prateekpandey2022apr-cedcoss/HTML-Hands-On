@@ -16,7 +16,17 @@
       }
 
       .container{
-          
+          margin-top: 2%;
+      }
+
+      table{
+          margin: 0 auto;
+          border-collapse: collapse;          
+      }
+
+      .data tr, .data td, .data th{
+          border: 1px solid #e3e3e3;
+          padding: 10px 20px;
       }
 
       form{
@@ -25,6 +35,14 @@
 
       .red{
           background-color: red;
+      }
+
+      .btn{
+          text-align: center;
+      }
+
+      .data{
+          display: none;
       }
 
     </style>
@@ -39,63 +57,186 @@
 
         <table>
             <tr>
-                <td><label for="first_name">First Name</label></td>
-            </tr>
-            <tr>                    
-                <td><input type="text" name="first_name" 
-                    id="first_name"></td>
-            </tr>
-
-
-            <tr>
-                <td><label for="last_name">Last Name</label></td>
-            </tr>
-            <tr>                    
-                <td><input type="text" name="last_name" 
-                    id="last_name"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td><input type="submit" name="submit" ></td>                
-            </tr>
+                <td><input type="text" name="class_0" id="class_0" 
+                    placeholder="Enter class"></td>
+                <td><input type="text" name="board_0" id="board_0" 
+                    placeholder="Enter board"></td>
+                <td><input type="text" name="marks_0" id="marks_0" 
+                    placeholder="Enter marks"></td>
+                <td><input type="text" name="division_0" id="division_0"
+                    placeholder="Enter division"></td>
+                <td><input type="button" name="plus" id="plus" value="+"></td>
+                <td><input type="button" name="sub" id="sub" value="-"></td>
+            </tr>            
 
         </table>
 
+        <p class="btn">
+            <input type="submit">
+        </p>
+
     </form>
+
+
+    <table class="data">
+        <tr>
+            <th>Class</th>
+            <th>Board</th>
+            <th>Marks</th>
+            <th>Division</th>
+        </tr>                
+    </table>
 
     </div>
     
     <script>
 
-        $("#form").on("submit", function (e) {
-            e.preventDefault();
-            console.log("form");
+        let row_count = 0;
 
-            let form_data = $(this).serializeArray();
-            $("input").removeClass("red")
+        let columns = ['class', 'board', 'marks', 'division'];
 
-            console.log(form_data);
+        let json_data = [  ];
 
-            for (const field of form_data) {                
-                console.log(field);
+        $(document).ready(function () {
+            
+            $("table").on('click', function(e){
+                
+                console.log(e.target);
 
-                if(!field.value)
-                {
-                    $(`#${field.name}`).focus();
-                    $(`#${field.name}`).addClass("red");
-                    alert(`${field.name} is empty`);
-                    return;
+                if(e.target && e.target.id == "plus"){
+                    add_row(e.target)
                 }
-            }
 
-            // form filled successfully
-            console.log(form_data);
+                else if(e.target && e.target.id == "sub"){
+                    del_row(e.target)
+                }
+
+            });
+
+// [            
+// {name: 'class_1', value: '11'}
+// {name: 'board_1', value: '111'}
+// {name: 'marks_1', value: '11'}
+// {name: 'division_1', value: '11'}
+// {name: 'class_2', value: '22'}
+// {name: 'board_2', value: '22'}
+// {name: 'marks_2', value: '22'}
+// {name: 'division_2', value: '22'}
+// {name: 'class_3', value: '33'}
+// {name: 'board_3', value: '333'}
+// {name: 'marks_3', value: '33'}
+// {name: 'division_3', value: '33'}
+// ]
+
+            $("form").on("submit", function (e) {
+                debugger;
+                e.preventDefault();
+                console.log($(this).serializeArray());
+                console.log("form");
+
+                let form_data = $(this).serializeArray();
+
+                
+
+                // for (const [i, v] of form_data.entries()) {
+
+                //     if( new RegExp(`_${i+1}$`, "i").test(iterator.name) ){
+
+                //     }
+                // }
+
+                for (const iterator of form_data) {
+
+                    debugger;
+                    // if( new RegExp(`_${i+1}$`, "i").test(iterator.name) ){
+
+                    // }
+
+                    // let match = iterator.name.match(/_(\d+)$/i);
+                    let match = iterator.name.match(/([a-z]+)_(\d+)$/i);
+
+                    let field = match[1];
+                    let idx = match[2];
+
+                    if(!json_data[idx]){
+                        json_data[idx] = [0, 0, 0, 0]; 
+                    }                      
+
+                    json_data[idx].splice(
+                        columns.indexOf(field), 1, iterator.value 
+                    )
+
+                    // ("class_1412".match(/([a-z]+)_(\d+)$/i))
+
+                }
+
+                console.log(json_data);
+
+                create_table();                
+                $(this)[0].reset();
+
+            });
+
 
         });
+
+
+        function add_row(el){
+
+            row_count++;
+
+            // index after which element need to be added
+            let row_idx = el.parentElement.parentElement.rowIndex;
+            
+            let html = `\
+<tr>
+    <td><input type="text" name="class_${row_count}" id="class_${row_count}" 
+        placeholder="Enter class"></td>
+    <td><input type="text" name="board_${row_count}" id="board_${row_count}" 
+        placeholder="Enter board"></td>
+    <td><input type="text" name="marks_${row_count}" id="marks_${row_count}" 
+        placeholder="Enter marks"></td>
+    <td><input type="text" name="division_${row_count}" id="division_${row_count}"
+        placeholder="Enter division"></td>
+    <td><input type="button" name="plus" id="plus" value="+"></td>
+    <td><input type="button" name="sub" id="sub" value="-"></td>
+</tr>\
+`
+            $("table tr").eq(row_idx).after(html)
+
+        }
+
+
+        function del_row(el) {
+            let row_idx = el.parentElement.parentElement.rowIndex;
+            $("table tr").eq(row_idx).remove()
+        }
+
+        function create_table() {
+            $(".data").css("display", "table");
+            $(".data tr:gt(0)").remove();
+
+            debugger;
+            for (const iterator of json_data) {
+                add_row_to_table(iterator);
+            }
+        }
+
+        function add_row_to_table(row){
+
+let tr = `\
+<tr>
+    <td>${row[0]}</td>
+    <td>${row[1]}</td>
+    <td>${row[2]}</td>
+    <td>${row[3]}</td>
+</tr>`
+
+            $(".data tr:last").after(tr);
+       
+        }
+
+
 
     </script>
 
