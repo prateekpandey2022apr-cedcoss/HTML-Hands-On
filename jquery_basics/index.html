@@ -8,84 +8,124 @@
     <title>Document</title>
 
     <style>
-        .error{
-            color: red;
-        }
 
-        .success{
-            color: green;
-        }
 
-        .info{
-            /* display: none; */
-        }
+      body{
+        max-width: 960px;       
+        margin: 0 auto;
+      }
+
+      .container{
+          
+      }
+
+      table, td, tr, th{
+          border: 1px solid #e3e3e3;
+          padding: 5px 10px;
+      }
+      
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 5% auto;
+      }
+
+      .odd_rows {
+          background-color: dodgerblue;
+      }
+
+      .even_rows {
+        background-color: LightGrey;
+      }
+
+      .head{
+          font-weight: bold;
+      }
 
     </style>
 
 </head>
 <body>
+
+
+    <div class="container">
+
+
+    <p>
+        <input type="button" value="Color Even Rows" id="even_btn">
+        <input type="button" value="Color Odd Rows" id="odd_btn">
+    </p>        
+
+    <table>
+
+        <tr class="head">
+            <td>Company</td>
+            <td>Contact</td>
+            <td>Country</td>            
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+        <tr>
+            <td>ABC</td>
+            <td>Jerry</td>
+            <td>Norway</td>
+        </tr>
+
+    </table>
+
+</div>
     
-    <form action="" id="form">
-
-            <table>
-                <tr>
-                    <td><label for="password">Password</label></td>  
-                </tr>
-                <tr>
-                    <td><input type="password" id="password" name="password"></td>  
-                </tr>
-                <tr>
-                    <td><label for="confirm_password">Confirm Password</label></td>  
-                </tr>
-                <tr>
-                    <td><input type="password" id="confirm_password" name="confirm_password"></td>  
-                </tr>
-                <tr class="info">
-                    <td></td>
-                </tr>
-                <tr>                    
-                    <td><input type="submit" id="submit" ></td>  
-                </tr>
-            </table>
-
-    </form>
-
     <script>
 
-        let f = $("#form").on('submit', function (e) {
-            e.preventDefault();            
-            console.log($(this));
 
-            // let pass1 = $("#password").val();
-            // let pass2 = $("#confirm_password").val();
-
-            // $(this).each(function (i, el) {
-            //     console.log($(this).find("input").val());
-            // });
+        $("#even_btn").on('click', function(){
+            console.log('even ..');
+            color_even();
         });
 
-        $("input[type='password']").on('input', function (e) {
-
-            debugger;
-            let pass1 = $("#password").val();
-            let pass2 = $("#confirm_password").val();
-
-            if(pass1 == pass2){
-                console.log("Password Matches !");
-                $(".info").addClass("success");
-                $(".info").children("td").text("Password Matches!");
-                return;
-            }
-            
-            else{
-                console.log("Password didn't match");
-                // $("#info").toggleClass("info");
-                $(".info").removeClass("success");
-                $(".info").addClass("error");
-                $(".info").children("td").text("Password didn't match");
-            }
-            
+        $("#odd_btn").on('click', function(){
+            console.log('odd ...');
+            color_odd();
         });
+
+        function color_odd(){
+            // $("tr:nth-of-type(even)").removeClass("even_rows");
+            $("tr:nth-of-type(odd)").toggleClass("odd_rows");
+        }
+
+        function color_even(){
+            // $("tr:nth-of-type(odd)").removeClass("odd_rows");
+            $("tr:nth-of-type(even)").toggleClass("even_rows");
+        }
 
     </script>
 
