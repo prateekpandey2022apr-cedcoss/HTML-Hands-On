@@ -1,62 +1,80 @@
 <!DOCTYPE html>
-<html>
-  <title>Test</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+
     <style>
-        .colored{
-            color: rgb(127, 197, 255);
+
+        input[type="button"]{
+            width: 100px;
         }
+
     </style>
 
-  </head>
-  <body>
-    <div class="test">
-      <p>Car Details</p>
-      <p>
-        In real life, a car is an object. A car has properties like weight and
-        color, and methods like start and stop. All cars have the same
-        properties, but the property values differ from car to car.
-      </p>
-      <p>
-        All cars have the same methods, but the methods are performed at
-        different times.
-      </p>
-    </div>
-    <div class="demo">
-      <p>Food Details</p>
-      <p>The seven food categories are</p>
-      <p>
-        Vegetables, Fruits, Grains, legumes, nuts and seeds, Meat and poultry,
-        Fish and seafood, Dairy foods, Eggs
-      </p>
-      <p>
-        Food sources from animals, birds, seafood and some plants provide
-        protein that is the building blocks of cells
-      </p>
-    </div>
-    <div class="test">
-      <p>Mobile Details</p>
-      <p>
-        There are three categories of mobile phones: basic phones, feature
-        phones, and smartphones.
-      </p>
-      <p>Smartphones are equipped with a QWERTY keypad.</p>
+</head>
+<body>
+
+    <div class="container">
+
+        <input type="button" name="previous" value="Previous" id="prev">
+        <input type="button" name="next" value="Next" id="next">            
+
+        <p>
+            <img src="" alt="" id="img">
+        </p>
+
     </div>
 
-        <script>
 
-            function foo(){
-                // console.log(new Date());
-                $(".test p:first").toggleClass("colored");
-                $(".test p:last").toggleClass("colored");
+    <script>
+
+        let current_image;
+
+        var img_arr = [
+            "https://images.unsplash.com/photo-1566579090262-51cde5ebe92e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
+            "https://images.unsplash.com/photo-1565308674684-1d8c0b4433d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            "https://images.unsplash.com/photo-1627990282816-21d33cb33136?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
+            "https://images.unsplash.com/photo-1599158150601-1417ebbaafdd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80",
+        ];
+
+
+        $(document).ready(function () {
+            
+            let random_num = Math.floor( Math.random() * img_arr.length )            
+            current_image = random_num;
+            set_image(current_image);
+        });
+
+        $("input").on("click", function(){
+            console.log($(this).attr("id"));
+
+            if($(this).attr("id") == "next"){
+                if(current_image == img_arr.length - 1){
+                    current_image = 0
+                }
+                current_image++;     
+                set_image(current_image);           
+            }
+            else{
+                if(current_image == 0){
+                    current_image = img_arr.length - 1;
+                }
+                current_image--;
+                set_image(current_image);
             }
 
-            setInterval(foo, 5*1000);
+        });
 
-        </script>
+        function set_image(index){
+            $("#img").attr("src", img_arr[index]);
+        }
 
-  </body>
+    </script>
+    
+</body>
 </html>
