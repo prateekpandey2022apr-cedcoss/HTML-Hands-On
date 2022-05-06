@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<style>
+
+		/* .success, .error{
+			display: none;
+		} */
+
+		span.error {
+			width: 200px !important;
+		}
+
+
+	</style>
+
+</head>
+<body>
+	<div id="wrapper">
+		
+		<div id="add_product_form">
+			<label for="product_sku">
+				<span>Product SKU</span> 
+				<input type="text" name="product_sku" id="product_sku">
+			</label>
+			<label for="product_name">
+				<span>Product Name</span> 
+				<input type="text" name="product_name" id="product_name">
+			</label>
+			<label for="product_price">
+				<span>Product Price</span> 
+				<input type="text" name="product_price" id="product_price">
+			</label>
+			<label for="product_quantity">
+				<span>Product Quantity</span> 
+				<input type="text" name="product_quantity" id="product_quantity">
+			</label>
+			<p class="submit">
+				<input type="button" name="add_product" id="add_product" value="Add Product">
+			</p>
+		</div>
+
+		<div id="notification">
+			<!-- <div class="success">Product Added Successfully.<a href="#" class="close">X</a></div>
+			<div class="error">There is some problem.<a href="#" class="close">X</a></div> -->
+		</div>
+
+		<div id="product_list">
+			<table>
+				<tr>
+					<th>SKU</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Action</th>
+				</tr>
+				<!-- <tr>
+					<td>101</td>
+					<td>Product 101</td>
+					<td>$150.00</td>
+					<td>50</td>
+					<td><a href="#" class="edit">Edit</a><a href="#" class="delete">Delete</a></td>
+				</tr>
+				<tr>
+					<td>102</td>
+					<td>Product 102</td>
+					<td>$100.00</td>
+					<td>20</td>
+					<td><a href="#" class="edit">Edit</a><a href="#" class="delete">Delete</a></td>
+				</tr> -->
+			</table>
+		</div>
+
+	</div>
+
+	<script>
+
+		let products = [
+			[1, 'Product 101', '150', '50'],
+			[2, 'Product 102', '250', '100'],
+		]
+
+		// add_row_to_table(products[0]);
+
+		function add_row_to_table(row, table_id){
+
+			let tr = $("<tr>");
+			
+			for (const item of row) {
+				let td = $("<td>");
+				td.text(item)
+				tr.append(td)
+			}				
+			
+			let td = $("<td>");
+
+			td.append($("<a>", {href: "#", class: "edit"}).text("Edit"));
+			td.append($("<a>", {href: "#", class: "delete"}).text("Delete"));			
+
+			tr.append(td);
+
+			$("table").append(tr);
+
+		}
+
+		$(document).ready(function(){
+
+			$("#add_product").on("click", function () {
+
+				//  remove previous errors
+				$(".error").remove();
+				// 2px inset #EBE9ED;
+				$("input[id^=product").css({'border': "2px inset #EBE9ED"});
+
+				let product = [];
+				let error = false;
+
+				// let sku = $("#product_sku");
+				// let name = $("#product_name");
+				// let price = $("#product_price");
+				// let quantity = $("#product_quantity");
+
+				$("input[id^=product").each(function(k, v) {  
+					console.log(k, $(v).val() ) 
+					product.push( $(v).val() )
+
+					let id = $(v).attr("id");
+
+					if($(v).val() == "")
+					{
+						error = true;
+						$(`#${id}`).css({'border': "2px solid red"});
+						$(`#${id}`).after(
+							`<span class="error"> Field shoudn't be empty</span>`
+							);													
+					}
+
+					else if(id == "product_sku" ){						
+						if( !(new RegExp(/\d+/).test( $(v).val() ) ) ){
+							error = true;
+							$(`#${id}`).css({'border': "2px solid red"});
+							$(`#${id}`).after(
+								`<span class="error"> Field should be integer</span>`
+							);													
+						}
+					}
+
+					else if(id == "product_name" ){						
+						if( !(new RegExp("[a-z]+").test( $(v).val() ) ) ){
+							error = true;
+							$(`#${id}`).css({'border': "2px solid red"});
+							$(`#${id}`).after(
+								`<span class="error"> Field should be a string</span>`
+							);													
+						}
+					}
+				})
+											
+				if(!error){
+
+					if($(this).attr("data-id")){
+
+						// form is used for editing
+
+						let row_index = $(this).attr("data-id");						
+						// let product = []
+							
+						$("table tr").eq(row_index).children().each(function(k, v) {  					
+							$(v).text( product[k] ) ;
+							console.log(k, v);
+						});
+
+						$("#notification").append(
+							'<div class="success">Product Successfully Updated.</div>'
+						);
+
+						$(".success").delay(2000).fadeOut();
+
+						// $("input[id^=product]").each(function(k, v){
+						// 	$(v).val(product[k]);
+						// });
+
+						$("input[id^=product").val("");
+
+					}
+
+					else{
+						$("#notification").append(
+							'<div class="success">Product Added Successfully.</div>'
+						);
+
+						$(".success").delay(2000).fadeOut();					
+
+						// clear the fields					
+						$("input[id^=product").val("");
+
+						add_row_to_table(product);
+					}
+
+					
+				}
+
+				else{
+					
+				}								
+				
+				console.log("field");
+			});			
+
+
+			function populate_form(el){
+
+				let row_index;
+				let product = [];				
+
+				row_index = el.parentElement.parentElement.rowIndex;
+
+				$("table tr").eq(row_index).children().each(function(k, v) {  					
+					product.push( $(v).text() );
+					console.log(k, v);
+				});
+
+				$("input[id^=product]").each(function(k, v){
+					$(v).val(product[k]);
+				});
+
+				// $("#add_product_form").after($("<input>", {
+				// 	type: "hidden", value: row_index
+				// }));
+
+				$("#add_product").attr("data-id", row_index);
+				$("#add_product").val("Update Product");
+			}
+
+			function delete_row(el){
+				el.parentElement.parentElement.remove();
+			}
+
+
+			$("#product_list table").on("click", function (event) {
+
+				if(event.target && event.target.className == "edit" )
+				{
+
+					console.log("Edit clicked");
+					populate_form(event.target);
+				}
+
+				if(event.target && event.target.className == "delete" )
+				{
+					console.log("Delete clicked");
+					if(confirm("Are you sure?")){
+						delete_row(event.target);
+					}					
+				}
+				
+			});
+
+		});
+
+
+	</script>
+
+</body>
+</html>
