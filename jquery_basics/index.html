@@ -10,6 +10,16 @@
 
     <style>
 
+        tr, td, th{
+            border: 1px solid #e3e3e3;
+            padding: 5px 20px;            
+        }
+
+        table{
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
         input[type="button"]{
             width: 100px;
         }
@@ -21,9 +31,40 @@
 
     <div class="container">
 
-        <input type="text" name="query" id="query">
+        <table id="product_list">
+            <tr>
+                <th>Name</th>
+                <th>Size/Color</th>                
+                <th>Price</th>
+            </tr>
 
-        <p class="suggestion"></p>
+            <tr>
+                <td>Duffle Bag</td>
+                <td>
+                    <select name="attr" id="bag">
+                        <option value="--">Select Size</option>
+                        <option value="small">Small</option>
+                        <option value="large">Large</option>
+                        <option value="xlarge">X Large</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>T-shirts</td>
+                <td>
+                    <select name="attr" id="tshirt">
+                        <option value="--">Select Color</option>
+                        <option value="lightgrey">Light Grey</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+
+        </table>
 
     </div>
 
@@ -32,40 +73,45 @@
 
         $(document).ready(function(){
 
-            $("#query").on('input', function(){
-
-                debugger;
-
-                let suggestions = flower_arr.filter(
-                    // i => i.startsWith( $(this).val() )
-                    i => (new RegExp( "^" + $(this).val(), "i")).test(i)
-                    );
+            $("#bag").on('change', function(){
+                console.log('changed');                
+                console.log( $(this).val() );
 
 
-                let out_str = "Suggestions: <br>";
+                let size = $(this).val();
 
-                for (const iterator of suggestions) {
-                    out_str += iterator + "<br>";
+                if(size == "small"){
+                    $(this).parent().next().text(100);
+                }
+                else if(size == "large"){
+                    $(this).parent().next().text(200);
+                }
+                else{
+                    $(this).parent().next().text(300);
                 }
                 
-                console.log(out_str);
+            });
 
-                $(".suggestion").html(out_str);
+            $("#tshirt").on('change', function(){
+                console.log('changed');                
+                console.log( $(this).val() );
 
+
+                let color = $(this).val();
+
+                if(color == "lightgrey"){
+                    $(this).parent().next().text(400);
+                }
+                else if(color == "blue"){
+                    $(this).parent().next().text(500);
+                }
+                else{
+                    $(this).parent().next().text(600);
+                }
+                
             });
             
         });
-
-        let flower_arr = [
-            "Daisy",
-            "Lily",
-            "Jasmine",
-            "Lotus",
-            "Rose",
-            "Sunflower",
-            "Oleander",
-            "Dahlia",            
-        ]
 
     </script>
     
