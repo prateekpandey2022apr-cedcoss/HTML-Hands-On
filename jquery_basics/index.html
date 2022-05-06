@@ -1,57 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
     <style>
+      tr,
+      td,
+      th {
+        border: 1px solid #e3e3e3;
+        padding: 5px 20px;
+      }
 
-        tr, td, th{
-            border: 1px solid #e3e3e3;
-            padding: 5px 20px;            
-        }
+      table {
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
 
-        table{
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-
-        input[type="button"]{
-            width: 100px;
-        }
-
+      /* input[type="button"] {
+        width: 100px;
+      } */
+      
     </style>
-
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus nemo quae esse atque reprehenderit dicta quos velit pariatur maxime. Incidunt corrupti blanditiis aperiam ipsum perferendis odio adipisci aut asperiores.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus nemo quae esse atque reprehenderit dicta quos velit pariatur maxime. Incidunt corrupti blanditiis aperiam ipsum perferendis odio adipisci aut asperiores.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus nemo quae esse atque reprehenderit dicta quos velit pariatur maxime. Incidunt corrupti blanditiis aperiam ipsum perferendis odio adipisci aut asperiores.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus nemo quae esse atque reprehenderit dicta quos velit pariatur maxime. Incidunt corrupti blanditiis aperiam ipsum perferendis odio adipisci aut asperiores.
-        </p>
+      <ul id="list">
+        <li>
+          Clothes <input type="button" value="+">
+          <ul>
+            <li>T-shirts <input type="button" value="+"></li>
+            <li>Trousers <input type="button" value="+"></li>
+          </ul>
+        </li>
+        <li>Electronics <input type="button" value="+">
+            <ul>
+                <li>Mobiles <input type="button" value="+"></li>
+                <li>Tabs <input type="button" value="+"></li>
+            </ul>
+        </li>
+      </ul>
 
     </div>
 
-
     <script>
+      $(document).ready(function () {
+        
+        $('#list').on("click", function(event){
 
-        $(document).ready(function(){
+            console.log("clicked");
 
-            $("p").on("click", function(){
-                alert("Clicked me");
-            })
+            if(event.target.type == "button"){
+                var label = prompt("Enter label");
+
+                $(event.target.parentElement).append( $(`
+                    <ul>
+                        <li>${label} <input type="button" value="+" >
+                        </li>
+                    </ul>`
+                ));
+            }
             
         });
 
+
+        
+      });
     </script>
-    
-</body>
+  </body>
 </html>
