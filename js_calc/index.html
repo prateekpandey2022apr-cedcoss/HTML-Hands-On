@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+
+        .container{
+            text-align: center;
+            /* margin: 0 auto; */
+        }
+
+      span {
+        display: inline-block;
+        border: 1px solid #e3e3e3;
+        padding: 5px 10px;
+        width: 20px;
+        margin: 5px 0px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      #display {
+        width: 100px;
+        /* margin: 0 0; */
+        padding: 51px 39px;
+        cursor: no-drop;
+      }
+
+      span.btn.equal, span.btn.reset{
+        width: 158px;
+        }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span id="display"></span>
+
+      <br />
+
+      <span class="btn">7</span>
+      <span class="btn">8</span>
+      <span class="btn">9</span>
+      <span class="btn">/</span>
+
+      <br />
+
+      <span class="btn">4</span>
+      <span class="btn">5</span>
+      <span class="btn">6</span>
+      <span class="btn">*</span>
+
+      <br />
+
+      <span class="btn">1</span>
+      <span class="btn">2</span>
+      <span class="btn">3</span>
+      <span class="btn">-</span>
+
+      <br />
+
+      <span class="btn">0</span>
+      <span class="btn">.</span>
+      <span class="btn">%</span>
+      <span class="btn">+</span>
+      
+      <br>
+      
+      <span class="btn equal">=</span>
+      
+      <br>
+
+      <span class="btn reset">Reset</span>
+    </div>
+
+
+    <script>
+
+        // let spans = document.querySelectorAll("span");
+
+
+        let input = "";
+
+        let container = document.getElementsByClassName("container");
+        let display = document.getElementById("display");
+
+        container[0].addEventListener("click", function(event){
+
+            // console.log(event.target);
+
+            if(event.target.className == "btn"){
+                console.log(event.target);
+
+                if(display.classList.contains("error")){
+                    display.innerText = "";
+                    input = "";
+                    display.classList.remove("error");
+                }
+
+                input += event.target.innerText;
+                display.innerText = input;
+            }   
+
+            if(event.target.classList.contains("equal")){
+                console.log(event.target);
+                console.log("solve");
+                try{
+                    display.innerText = eval(input);
+                }
+
+                catch(err){
+                    display.innerText = "Invalid Syntax";
+                    display.className = "error";
+                    input = "";                    
+                }
+                
+                input = display.innerText;
+            }   
+
+            if(event.target.classList.contains("reset")){
+                console.log(event.target);
+                console.log("reset");                
+                input = "";
+                display.innerText = "";
+            }   
+
+        });
+        
+
+    </script>
+
+  </body>
+</html>
