@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <script>
-                    
-        function sum(arr, n) {
-            // Only change code below this line
-            if (n == 0)
-            {
-                return 0;
-            }
+      function lookUpProfile(name, prop) {
+        // Only change code below this line
 
-            return arr[n - 1] + sum(arr, n-1);
-            // Only change code above this line
+        for (let i = 0; i < contacts.length; i++) {
+          if (contacts[i].firstName === name) {
+            if (contacts[i].hasOwnProperty(prop)) {
+              return contacts[i][prop];
+            } else {
+              return "No such property";
+            }
+          }
         }
+
+        return "No such contact";
+
+        // Only change code above this line
+      }
     </script>
-    
-</body>
+  </body>
 </html>
