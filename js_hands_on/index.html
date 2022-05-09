@@ -8,23 +8,20 @@
   </head>
   <body>
     <script>
-      function lookUpProfile(name, prop) {
+      function randomFraction() {
         // Only change code below this line
 
-        for (let i = 0; i < contacts.length; i++) {
-          if (contacts[i].firstName === name) {
-            if (contacts[i].hasOwnProperty(prop)) {
-              return contacts[i][prop];
-            } else {
-              return "No such property";
-            }
-          }
-        }
+        var result = 0;
 
-        return "No such contact";
+        do {
+          result = Math.random();
+        } while (result === 0);
+
+        return result;
 
         // Only change code above this line
       }
+      
     </script>
   </body>
 </html>
