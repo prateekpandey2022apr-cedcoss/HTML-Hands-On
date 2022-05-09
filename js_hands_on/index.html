@@ -8,15 +8,15 @@
   </head>
   <body>
     <script>
-      // Only change code below this line
-      function countdown(n) {
-        if (n < 1) return [];
+      function rangeOfNumbers(startNum, endNum) {
+        if (startNum === endNum) {
+          return [startNum];
+        }
 
-        let arr = countdown(n - 1);
-        arr.unshift(n);
+        let arr = rangeOfNumbers(startNum, endNum - 1);
+        arr.push(endNum);
         return arr;
       }
-      // Only change code above this line
     </script>
   </body>
 </html>
